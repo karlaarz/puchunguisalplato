@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Recetario</title>
+  <style>
+    :root {
+      --bg: #F6F6F3;
+      --white: #FFFFFF;
+      --accent: #2E4057;
+      --accent-light: #EAF0F8;
+      --sage: #4A7C6F;
+      --sage-light: #E6F2EF;
+      --red: #C0392B;
+      --red-light: #FDEAEA;
+      --text: #1A1A1A;
+      --text-mid: #555555;
+      --text-light: #999999;
+      --border: #E8E8E4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    header {
+      background: var(--accent);
+      color: white;
+      padding: 28px 24px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 { font-size: 20px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; }
+    header a { color: rgba(255,255,255,0.65); font-size: 13px; text-decoration: none; letter-spacing: 0.5px; }
+    header a:hover { color: white; }
+
+    /* LOGIN */
+    .login-wrap {
+      max-width: 420px;
+      margin: 60px auto;
+      background: var(--white);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+    }
+    .login-wrap h2 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .login-wrap p { font-size: 13px; color: var(--text-light); margin-bottom: 24px; }
+
+    /* MAIN LAYOUT */
+    .main { max-width: 720px; margin: 0 auto; padding: 28px 24px; }
+
+    /* SECTIONS */
+    .section {
+      background: var(--white);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .section-head {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .section-head h2 { font-size: 15px; font-weight: 600; }
+    .section-body { padding: 22px; }
+
+    /* FORM */
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 12px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 6px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); background: white; }
+    .field textarea { resize: vertical; min-height: 80px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+    /* INGREDIENT ROWS */
+    .ing-group { margin-bottom: 16px; }
+    .ing-group-label {
+      font-size: 12px; font-weight: 600; color: var(--text-light); text-transform: uppercase;
+      letter-spacing: 0.7px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+    }
+    .ing-row { display: grid; grid-template-columns: 90px 80px 1fr 32px; gap: 8px; align-items: center; margin-bottom: 6px; }
+    .ing-row input { padding: 8px 10px; font-size: 14px; }
+    .btn-icon {
+      width: 32px; height: 32px; border: 1px solid var(--border);
+      background: var(--bg); border-radius: 7px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-light); font-size: 16px; transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-icon:hover { background: var(--red-light); border-color: var(--red); color: var(--red); }
+    .btn-add {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: var(--accent);
+      background: var(--accent-light); border: none; border-radius: 7px;
+      padding: 7px 12px; cursor: pointer; margin-top: 4px;
+    }
+    .btn-add:hover { opacity: 0.85; }
+
+    /* STEPS */
+    .step-row { display: grid; grid-template-columns: 1fr 32px; gap: 8px; align-items: start; margin-bottom: 8px; }
+    .step-row textarea { min-height: 60px; font-size: 14px; padding: 8px 10px; }
+
+    /* BUTTONS */
+    .btn {
+      padding: 11px 22px;
+      border: none;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      font-family: inherit;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-sage { background: var(--sage); color: white; }
+    .btn-ghost { background: var(--bg); color: var(--text-mid); border: 1px solid var(--border); }
+    .btn-danger { background: var(--red-light); color: var(--red); border: 1px solid #f5c6c6; }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* CONFIG PANEL */
+    .config-label { font-size: 12px; color: var(--text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 5px; display: block; }
+    .config-input { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: monospace; background: var(--bg); color: var(--text); outline: none; margin-bottom: 14px; }
+    .config-input:focus { border-color: var(--accent); background: white; }
+
+    /* RECIPE LIST */
+    .recipe-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .recipe-item:last-child { border-bottom: none; }
+    .recipe-item-name { font-size: 15px; font-weight: 500; }
+    .recipe-item-meta { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+    /* ALERTS */
+    .alert { padding: 12px 16px; border-radius: 9px; font-size: 14px; margin-bottom: 16px; display: none; }
+    .alert.show { display: block; }
+    .alert-success { background: var(--sage-light); color: #2d6b5e; border: 1px solid #b3d9d1; }
+    .alert-error { background: var(--red-light); color: var(--red); border: 1px solid #f5c6c6; }
+    .alert-info { background: var(--accent-light); color: var(--accent); border: 1px solid #c5d8ef; }
+
+    /* SPINNER */
+    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 6px; vertical-align: -2px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+    .tag-fuerte { background: var(--accent-light); color: var(--accent); }
+    .tag-snack { background: var(--sage-light); color: var(--sage); }
+
+    /* Hide logged-out view when logged in */
+    body.logged-in #login-screen { display: none; }
+    body:not(.logged-in) #app { display: none; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .hint { font-size: 12px; color: var(--text-light); margin-top: 5px; }
+    .group-block { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+    .group-block-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>✦ Admin · Recetario</h1>
+  <a href="index.html">← Ver recetario</a>
+</header>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-wrap">
+    <h2>Acceso admin</h2>
+    <p>Ingresa tu contraseña para continuar.</p>
+    <div class="field">
+      <label>Contraseña</label>
+      <input type="password" id="pwd-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()">
+    </div>
+    <div class="alert alert-error" id="login-err">Contraseña incorrecta.</div>
+    <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="login()">Entrar</button>
+    <p style="font-size:12px;color:var(--text-light);margin-top:16px;text-align:center">
+      La contraseña se define en la variable <code>ADMIN_PASSWORD</code> al inicio del script.
+    </p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="main">
+
+    <!-- ALERT GLOBAL -->
+    <div class="alert alert-success" id="alert-ok"></div>
+    <div class="alert alert-error" id="alert-err"></div>
+
+    <!-- CONFIG GITHUB -->
+    <div class="section">
+      <div class="section-head">
+        <h2>Configuración GitHub</h2>
+        <button class="btn btn-ghost" style="font-size:13px;padding:7px 14px" onclick="saveConfig()">Guardar</button>
+      </div>
+      <div class="section-body">
+        <div class="alert alert-info show" style="margin-bottom:16px">
+          Necesitas un <strong>Personal Access Token</strong> de GitHub con permiso <code>repo</code>.
+          <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--accent)">Crear token →</a>
+        </div>
+        <label class="config-label">Token de GitHub</label>
+        <input class="config-input" type="password" id="cfg-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        <label class="config-label">Usuario / Organización</label>
+        <input class="config-input" type="text" id="cfg-owner" placeholder="tu-usuario-github">
+        <label class="config-label">Nombre del repositorio</label>
+        <input class="config-input" type="text" id="cfg-repo" placeholder="recetario">
+        <label class="config-label">Branch</label>
+        <input class="config-input" type="text" id="cfg-branch" placeholder="main">
+        <p class="hint">Los datos se guardan en tu navegador (localStorage).</p>
+      </div>
+    </div>
+
+    <!-- RECETAS ACTUALES -->
+    <div class="section">
+      <div class="section-head">
+        <h2>Recetas guardadas</h2>
+        <button class="btn btn-ghost" style="font-size:13px;padding:7px 14px" onclick="loadRecipes()">↺ Recargar</button>
+      </div>
+      <div class="section-body" id="recipes-list">
+        <p style="color:var(--text-light);font-size:14px">Cargando...</p>
+      </div>
+    </div>
+
+    <!-- AGREGAR RECETA -->
+    <div class="section">
+      <div class="section-head">
+        <h2>Agregar nueva receta</h2>
+      </div>
+      <div class="section-body">
+
+        <div class="field-row">
+          <div class="field">
+            <label>Nombre de la receta *</label>
+            <input type="text" id="f-name" placeholder="Ej: Pasta al limón">
+          </div>
+          <div class="field">
+            <label>Categoría *</label>
+            <select id="f-cat">
+              <option value="fuerte">Plato Fuerte</option>
+              <option value="snack">Postre & Snack</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Tiempo</label>
+            <input type="text" id="f-time" placeholder="Ej: 30 min · 180°C">
+          </div>
+          <div class="field">
+            <label>Icono</label>
+            <select id="f-icon">
+              <option value="leaf">🌿 Leaf (ensaladas, vegetales)</option>
+              <option value="cupcake">🧁 Cupcake (postres horneados)</option>
+              <option value="wheat">🌾 Wheat (panes, avena)</option>
+              <option value="zap">⚡ Zap (energía, proteína)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Porciones base *</label>
+            <input type="number" id="f-servings" placeholder="4" min="1">
+          </div>
+          <div class="field">
+            <label>Unidad de porción</label>
+            <input type="text" id="f-unit" placeholder="personas, muffins, barras...">
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- INGREDIENTES -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <h3 style="font-size:14px;font-weight:600">Ingredientes</h3>
+          <button class="btn-add" onclick="addGroup()">+ Grupo</button>
+        </div>
+        <p class="hint" style="margin-bottom:12px">Puedes tener un solo grupo (sin nombre) o varios grupos con nombre (ej: "Para la salsa").</p>
+        <div id="groups-container"></div>
+
+        <hr class="divider">
+
+        <!-- PASOS -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <h3 style="font-size:14px;font-weight:600">Pasos de preparación</h3>
+          <button class="btn-add" onclick="addStep()">+ Paso</button>
+        </div>
+        <div id="steps-container"></div>
+
+        <hr class="divider">
+
+        <div class="btn-row">
+          <button class="btn btn-sage" onclick="saveRecipe()" id="save-btn">Guardar receta en GitHub</button>
+          <button class="btn btn-ghost" onclick="resetForm()">Limpiar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── CONFIGURACIÓN ────────────────────────────────────────────────────────────
+// Cambia esta contraseña antes de publicar
+const ADMIN_PASSWORD = 'recetario2024';
+
+// ── LOGIN ────────────────────────────────────────────────────────────────────
+function login() {
+  const pwd = document.getElementById('pwd-input').value;
+  if (pwd === ADMIN_PASSWORD) {
+    document.body.classList.add('logged-in');
+    loadConfig();
+    loadRecipes();
+  } else {
+    document.getElementById('login-err').classList.add('show');
+  }
+}
+
+// ── CONFIG (localStorage) ────────────────────────────────────────────────────
+function saveConfig() {
+  localStorage.setItem('gh_token',  document.getElementById('cfg-token').value.trim());
+  localStorage.setItem('gh_owner',  document.getElementById('cfg-owner').value.trim());
+  localStorage.setItem('gh_repo',   document.getElementById('cfg-repo').value.trim());
+  localStorage.setItem('gh_branch', document.getElementById('cfg-branch').value.trim() || 'main');
+  showAlert('ok', 'Configuración guardada.');
+  loadRecipes();
+}
+
+function loadConfig() {
+  document.getElementById('cfg-token').value  = localStorage.getItem('gh_token')  || '';
+  document.getElementById('cfg-owner').value  = localStorage.getItem('gh_owner')  || '';
+  document.getElementById('cfg-repo').value   = localStorage.getItem('gh_repo')   || '';
+  document.getElementById('cfg-branch').value = localStorage.getItem('gh_branch') || 'main';
+}
+
+function getConfig() {
+  return {
+    token:  localStorage.getItem('gh_token'),
+    owner:  localStorage.getItem('gh_owner'),
+    repo:   localStorage.getItem('gh_repo'),
+    branch: localStorage.getItem('gh_branch') || 'main',
+  };
+}
+
+// ── GITHUB API ───────────────────────────────────────────────────────────────
+async function ghGet(path) {
+  const { token, owner, repo } = getConfig();
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+  });
+  if (!res.ok) throw new Error(`GitHub GET error: ${res.status}`);
+  return res.json();
+}
+
+async function ghPut(path, content, message, sha) {
+  const { token, owner, repo, branch } = getConfig();
+  const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch };
+  if (sha) body.sha = sha;
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `token ${token}`,
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || `GitHub PUT error: ${res.status}`);
+  }
+  return res.json();
+}
+
+// ── CARGAR RECETAS ───────────────────────────────────────────────────────────
+let currentSha = null;
+let currentRecipes = [];
+
+async function loadRecipes() {
+  const listEl = document.getElementById('recipes-list');
+  listEl.innerHTML = '<p style="color:var(--text-light);font-size:14px">Cargando desde GitHub...</p>';
+  const { token, owner, repo } = getConfig();
+  if (!token || !owner || !repo) {
+    listEl.innerHTML = '<p style="color:var(--text-light);font-size:14px">Configura GitHub primero.</p>';
+    return;
+  }
+  try {
+    const file = await ghGet('recipes.json');
+    currentSha = file.sha;
+    currentRecipes = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,'')))));
+    renderRecipeList();
+  } catch (e) {
+    listEl.innerHTML = `<p style="color:var(--red);font-size:14px">Error: ${e.message}</p>`;
+  }
+}
+
+function renderRecipeList() {
+  const el = document.getElementById('recipes-list');
+  if (!currentRecipes.length) {
+    el.innerHTML = '<p style="color:var(--text-light);font-size:14px">No hay recetas aún.</p>';
+    return;
+  }
+  el.innerHTML = currentRecipes.map(r => `
+    <div class="recipe-item">
+      <div>
+        <div class="recipe-item-name">${r.name}</div>
+        <div class="recipe-item-meta">
+          <span class="tag ${r.category === 'fuerte' ? 'tag-fuerte' : 'tag-snack'}">
+            ${r.category === 'fuerte' ? 'Plato Fuerte' : 'Postre & Snack'}
+          </span>
+          &nbsp;· ${r.time} · ${r.servingsBase} ${r.servingsUnit}
+        </div>
+      </div>
+      <button class="btn btn-danger" style="font-size:13px;padding:6px 14px" onclick="deleteRecipe(${r.id})">Eliminar</button>
+    </div>
+  `).join('');
+}
+
+// ── ELIMINAR RECETA ──────────────────────────────────────────────────────────
+async function deleteRecipe(id) {
+  if (!confirm('¿Eliminar esta receta?')) return;
+  currentRecipes = currentRecipes.filter(r => r.id !== id);
+  await commitRecipes(`Elimina receta id ${id}`);
+}
+
+// ── COMMIT RECIPES ───────────────────────────────────────────────────────────
+async function commitRecipes(message) {
+  try {
+    const json = JSON.stringify(currentRecipes, null, 2);
+    const result = await ghPut('recipes.json', json, message, currentSha);
+    currentSha = result.content.sha;
+    showAlert('ok', `✓ ${message}`);
+    renderRecipeList();
+  } catch (e) {
+    showAlert('err', `Error al guardar: ${e.message}`);
+  }
+}
+
+// ── FORM: GRUPOS DE INGREDIENTES ─────────────────────────────────────────────
+let groupCount = 0;
+
+function addGroup(name = '') {
+  const id = ++groupCount;
+  const html = `
+    <div class="group-block" id="group-${id}">
+      <div class="group-block-header">
+        <input type="text" placeholder='Nombre del grupo (ej: "Para la salsa") — dejar vacío si es único'
+          value="${name}"
+          style="flex:1;padding:7px 10px;border:1px solid var(--border);border-radius:7px;font-size:13px;background:var(--bg);font-family:inherit;outline:none"
+          id="group-name-${id}">
+        <button class="btn-icon" style="margin-left:10px" onclick="removeGroup(${id})">✕</button>
+      </div>
+      <div id="ings-${id}"></div>
+      <button class="btn-add" onclick="addIng(${id})">+ Ingrediente</button>
+    </div>`;
+  document.getElementById('groups-container').insertAdjacentHTML('beforeend', html);
+  addIng(id);
+}
+
+function removeGroup(id) {
+  document.getElementById(`group-${id}`)?.remove();
+}
+
+let ingCount = 0;
+function addIng(groupId, a='', u='', n='') {
+  const id = ++ingCount;
+  const html = `
+    <div class="ing-row" id="ing-${id}">
+      <input type="number" placeholder="Cantidad" value="${a}" id="ing-a-${id}" step="any" min="0">
+      <input type="text" placeholder="Unidad" value="${u}" id="ing-u-${id}">
+      <input type="text" placeholder="Ingrediente *" value="${n}" id="ing-n-${id}">
+      <button class="btn-icon" onclick="document.getElementById('ing-${id}').remove()">✕</button>
+    </div>`;
+  document.getElementById(`ings-${groupId}`).insertAdjacentHTML('beforeend', html);
+}
+
+// ── FORM: PASOS ──────────────────────────────────────────────────────────────
+let stepCount = 0;
+function addStep(text = '') {
+  const id = ++stepCount;
+  const html = `
+    <div class="step-row" id="step-${id}">
+      <textarea placeholder="Describe el paso..." id="step-text-${id}">${text}</textarea>
+      <button class="btn-icon" onclick="document.getElementById('step-${id}').remove()">✕</button>
+    </div>`;
+  document.getElementById('steps-container').insertAdjacentHTML('beforeend', html);
+}
+
+// ── LEER FORM ────────────────────────────────────────────────────────────────
+function readForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const category = document.getElementById('f-cat').value;
+  const time = document.getElementById('f-time').value.trim();
+  const icon = document.getElementById('f-icon').value;
+  const servingsBase = parseFloat(document.getElementById('f-servings').value) || 1;
+  const servingsUnit = document.getElementById('f-unit').value.trim() || 'personas';
+
+  // Grupos
+  const groupEls = document.querySelectorAll('[id^="group-"]');
+  const groups = [];
+  groupEls.forEach(el => {
+    const gId = el.id.replace('group-', '');
+    const gName = document.getElementById(`group-name-${gId}`)?.value.trim() || null;
+    const ingEls = el.querySelectorAll('[id^="ing-a-"]');
+    const items = [];
+    ingEls.forEach(aEl => {
+      const iId = aEl.id.replace('ing-a-', '');
+      const n = document.getElementById(`ing-n-${iId}`)?.value.trim();
+      if (!n) return;
+      const aRaw = document.getElementById(`ing-a-${iId}`)?.value;
+      const a = aRaw ? parseFloat(aRaw) : null;
+      const u = document.getElementById(`ing-u-${iId}`)?.value.trim() || '';
+      items.push({ a, u, n });
+    });
+    if (items.length) groups.push({ name: gName || null, items });
+  });
+
+  // Pasos
+  const stepEls = document.querySelectorAll('[id^="step-text-"]');
+  const steps = [];
+  stepEls.forEach(el => {
+    const t = el.value.trim();
+    if (t) steps.push(t);
+  });
+
+  return { name, category, time, icon, servingsBase, servingsUnit, groups, steps };
+}
+
+// ── GUARDAR RECETA ───────────────────────────────────────────────────────────
+async function saveRecipe() {
+  const data = readForm();
+  if (!data.name) return showAlert('err', 'El nombre es obligatorio.');
+  if (!data.groups.length || !data.groups[0].items.length) return showAlert('err', 'Agrega al menos un ingrediente.');
+  if (!data.steps.length) return showAlert('err', 'Agrega al menos un paso.');
+
+  const maxId = currentRecipes.reduce((m, r) => Math.max(m, r.id), 0);
+  const recipe = { id: maxId + 1, ...data };
+  currentRecipes.push(recipe);
+
+  const btn = document.getElementById('save-btn');
+  btn.innerHTML = '<span class="spinner"></span>Guardando...';
+  btn.disabled = true;
+
+  try {
+    await commitRecipes(`Agrega receta: ${data.name}`);
+    resetForm();
+  } finally {
+    btn.innerHTML = 'Guardar receta en GitHub';
+    btn.disabled = false;
+  }
+}
+
+// ── RESET FORM ───────────────────────────────────────────────────────────────
+function resetForm() {
+  ['f-name','f-time','f-servings','f-unit'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-cat').value = 'fuerte';
+  document.getElementById('f-icon').value = 'leaf';
+  document.getElementById('groups-container').innerHTML = '';
+  document.getElementById('steps-container').innerHTML = '';
+  groupCount = 0; ingCount = 0; stepCount = 0;
+  addGroup();
+  addStep();
+}
+
+// ── ALERTS ───────────────────────────────────────────────────────────────────
+function showAlert(type, msg) {
+  const ids = { ok: 'alert-ok', err: 'alert-err' };
+  const el = document.getElementById(ids[type]);
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 4000);
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+resetForm();
+</script>
+</body>
+</html>

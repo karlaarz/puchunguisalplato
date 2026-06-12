@@ -1,0 +1,149 @@
+[
+  {
+    "id": 1,
+    "name": "Ensalada de Salmón Ahumado",
+    "icon": "leaf",
+    "category": "fuerte",
+    "time": "15 min",
+    "servingsBase": 4,
+    "servingsUnit": "personas",
+    "groups": [
+      {
+        "name": "Para la ensalada",
+        "items": [
+          { "a": 200,  "u": "g",  "n": "salmón ahumado" },
+          { "a": 1,    "u": "",   "n": "hinojo grande" },
+          { "a": null, "u": "",   "n": "aceitunas verdes (al gusto)" },
+          { "a": null, "u": "",   "n": "granada (al gusto)" },
+          { "a": null, "u": "",   "n": "granillo de pistacho (al gusto)" },
+          { "a": null, "u": "",   "n": "sal y pimienta (al gusto)" },
+          { "a": null, "u": "",   "n": "aceite de oliva extra virgen (al gusto)" }
+        ]
+      },
+      {
+        "name": "Para la vinagreta",
+        "items": [
+          { "a": 30,   "u": "ml", "n": "jugo de naranja" },
+          { "a": 20,   "u": "ml", "n": "jugo de limón" },
+          { "a": 50,   "u": "ml", "n": "aceite de oliva extra virgen" },
+          { "a": null, "u": "",   "n": "pimienta (al gusto)" }
+        ]
+      }
+    ],
+    "steps": [
+      "Lava el hinojo y córtalo en láminas muy finas (puedes usar una mandolina). Reserva las hojas verdes para decorar al final.",
+      "Corta o desmenuza el salmón ahumado en trozos medianos.",
+      "Prepara la vinagreta: en un frasco o tazón pequeño, mezcla el jugo de naranja, el jugo de limón y el aceite de oliva. Añade pimienta al gusto y agita bien.",
+      "En una fuente amplia, coloca las láminas de hinojo como base. Distribuye el salmón encima.",
+      "Agrega las aceitunas verdes, los granos de granada y el granillo de pistacho.",
+      "Rocía la vinagreta sobre la ensalada justo antes de servir. Decora con las hojas del hinojo y sirve de inmediato."
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Muffins de Banana y Zanahoria",
+    "icon": "cupcake",
+    "category": "snack",
+    "time": "25 min · 180°C",
+    "servingsBase": 6,
+    "servingsUnit": "muffins",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": 1,      "u": "",     "n": "banana madura, machacada" },
+          { "a": 1,      "u": "",     "n": "zanahoria mediana, rallada" },
+          { "a": 1,      "u": "taza", "n": "harina leudante integral" },
+          { "a": 0.333,  "u": "taza", "n": "leche baja en grasa" },
+          { "a": 1,      "u": "",     "n": "huevo" },
+          { "a": 2,      "u": "cdas", "n": "miel" }
+        ]
+      }
+    ],
+    "steps": [
+      "Precalienta el horno a 180°C. Forra un molde de 6 muffins con moldes de papel.",
+      "Coloca la harina leudante en un tazón grande.",
+      "En otro recipiente, mezcla la banana machacada con el huevo, la leche y la miel.",
+      "Agrega la mezcla húmeda a la harina junto con la zanahoria rallada. Mezcla con movimientos suaves hasta combinar (no sobre-mezcles).",
+      "Divide la mezcla equitativamente entre los 6 moldes.",
+      "Hornea 15 minutos o hasta que estén dorados y un palillo insertado salga limpio.",
+      "Deja enfriar sobre una rejilla antes de servir."
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Pan de Avena con Manzana",
+    "icon": "wheat",
+    "category": "snack",
+    "time": "50 min · 180°C",
+    "servingsBase": 8,
+    "servingsUnit": "rebanadas",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": 100,  "u": "g (1 taza)", "n": "copos de avena" },
+          { "a": 3,    "u": "",           "n": "manzanas medianas" },
+          { "a": 120,  "u": "ml",         "n": "agua (½ taza)" },
+          { "a": 1,    "u": "",           "n": "plátano maduro" },
+          { "a": 100,  "u": "g",          "n": "arándanos secos" },
+          { "a": 100,  "u": "g",          "n": "pasas" }
+        ]
+      }
+    ],
+    "steps": [
+      "Precalienta el horno a 180°C. Engrasa un molde para pan o fórralo con papel encerado.",
+      "Pela y ralla 2 manzanas. Corta la tercera en láminas finas para decorar la superficie.",
+      "Machaca el plátano en un tazón grande hasta obtener un puré.",
+      "Agrega la avena y el agua. Mezcla bien y deja reposar 5 minutos para que la avena absorba el líquido.",
+      "Incorpora las manzanas ralladas, los arándanos secos y las pasas. Mezcla hasta integrar.",
+      "Vierte la mezcla en el molde y decora la superficie con las láminas de manzana.",
+      "Hornea 35–40 minutos o hasta que un palillo insertado en el centro salga limpio.",
+      "Deja enfriar completamente antes de desmoldar y cortar. Conservar en el refrigerador."
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Barras de Proteína Caseras",
+    "icon": "zap",
+    "category": "snack",
+    "time": "20 min + 2 h frío",
+    "servingsBase": 8,
+    "servingsUnit": "barras",
+    "groups": [
+      {
+        "name": "Para la base",
+        "items": [
+          { "a": 1.5,  "u": "tazas", "n": "avena molida (licuada gruesa)" },
+          { "a": 0.5,  "u": "taza",  "n": "proteína en polvo (vainilla o sin sabor)" },
+          { "a": 0.25, "u": "taza",  "n": "almendras molidas" },
+          { "a": 0.333,"u": "taza",  "n": "mantequilla de frutos secos (cajú o almendra)" },
+          { "a": 0.25, "u": "taza",  "n": "leche (la de tu elección)" },
+          { "a": 3.5,  "u": "cdas",  "n": "miel o jarabe de maple" },
+          { "a": 1,    "u": "cdita", "n": "extracto de vainilla" },
+          { "a": 3,    "u": "cdas",  "n": "chips de chocolate oscuro mini" },
+          { "a": null, "u": "",      "n": "pizca de sal" }
+        ]
+      },
+      {
+        "name": "Para la cobertura",
+        "items": [
+          { "a": 0.5, "u": "taza",  "n": "chocolate oscuro" },
+          { "a": 1,   "u": "cdita", "n": "aceite de coco" },
+          { "a": 1,   "u": "cda",   "n": "mantequilla de frutos secos" }
+        ]
+      }
+    ],
+    "steps": [
+      "Forra un molde pequeño para pan o cuadrado con papel encerado.",
+      "En un tazón, combina la avena molida, la proteína en polvo, las almendras molidas y la sal.",
+      "En otro recipiente, mezcla la mantequilla de frutos secos, la leche, la miel y la vainilla hasta obtener una mezcla suave.",
+      "Vierte los ingredientes húmedos en los secos y mezcla hasta obtener una masa espesa y moldeable (similar a masa de galletas). Incorpora los chips de chocolate.",
+      "Presiona la mezcla firmemente en el molde asegurándote de que quede pareja y compacta.",
+      "Refrigera 1–2 horas hasta que esté firme.",
+      "Derrite el chocolate con el aceite de coco (a baño María o en microondas en intervalos de 30 seg). Incorpora la mantequilla de frutos secos y mezcla.",
+      "Vierte la cobertura de chocolate sobre las barras frías y regresa al refrigerador hasta que el chocolate endurezca (aprox. 30 min).",
+      "Corta en 8 barras. Guarda en el refrigerador en un recipiente hermético por hasta 1 semana."
+    ]
+  }
+]
