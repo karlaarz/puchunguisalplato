@@ -145,5 +145,182 @@
       "Vierte la cobertura de chocolate sobre las barras frías y regresa al refrigerador hasta que el chocolate endurezca (aprox. 30 min).",
       "Corta en 8 barras. Guarda en el refrigerador en un recipiente hermético por hasta 1 semana."
     ]
+  },
+  {
+    "id": 5,
+    "name": "Salsa Pasilla",
+    "icon": "leaf",
+    "category": "fuerte",
+    "time": "20 min",
+    "servingsBase": 4,
+    "servingsUnit": "personas",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": null, "u": "",      "n": "chiles pasilla (al gusto)" },
+          { "a": 2,    "u": "",      "n": "jitomates" },
+          { "a": null, "u": "",      "n": "semillas del chile" },
+          { "a": null, "u": "",      "n": "ajonjolí (al gusto)" },
+          { "a": null, "u": "",      "n": "pimienta (al gusto)" },
+          { "a": 1,    "u": "raja",  "n": "canela chiquita" },
+          { "a": 1,    "u": "pizca", "n": "orégano" },
+          { "a": null, "u": "",      "n": "sal (al gusto)" }
+        ]
+      }
+    ],
+    "steps": [
+      "Quitar las semillas al chile pasilla y asarlo sin quemarlo. Moler muy bien.",
+      "Hervir 1 o 2 jitomates y moler muy bien.",
+      "Asar las semillas del chile, ajonjolí, pimienta y la raja de canela. Moler bien.",
+      "Freír el chile a flama baja unos 2–3 minutos.",
+      "Agregar el jitomate molido y sazonar con sal.",
+      "Agregar todos los condimentos molidos y una pizca de orégano. Dejar hervir un poco. Listo."
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Pipián con Pollo y Chilacayotes",
+    "icon": "leaf",
+    "category": "fuerte",
+    "time": "45 min",
+    "servingsBase": 4,
+    "servingsUnit": "personas",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": null, "u": "",      "n": "chile guajillo (al gusto)" },
+          { "a": 2,    "u": "",      "n": "jitomates" },
+          { "a": 1,    "u": "",      "n": "bolillo" },
+          { "a": 1,    "u": "",      "n": "tortilla" },
+          { "a": 0.25, "u": "taza",  "n": "cacahuate molido" },
+          { "a": null, "u": "",      "n": "cebolla (al gusto)" },
+          { "a": null, "u": "",      "n": "ajo (al gusto)" },
+          { "a": null, "u": "",      "n": "sal (al gusto)" },
+          { "a": null, "u": "",      "n": "pollo (piezas al gusto)" },
+          { "a": null, "u": "",      "n": "chilacayotes (al gusto)" }
+        ]
+      }
+    ],
+    "steps": [
+      "Hervir el chile guajillo y los 2 jitomates.",
+      "Freír el bolillo y la tortilla.",
+      "Asar la cebolla y el ajo.",
+      "Moler muy bien el chile, el pan y la tortilla. Sazonar sin aceite.",
+      "Moler muy bien el jitomate, cacahuate, cebolla, ajo y sal. Agregar a la mezcla anterior.",
+      "Sazonar muy bien.",
+      "Hervir los chilacayotes por separado.",
+      "Agregar el pollo y los chilacayotes a la salsa. Listo."
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Codornices Rellenas al Horno",
+    "icon": "leaf",
+    "category": "fuerte",
+    "time": "60 min · 200°C",
+    "servingsBase": 2,
+    "servingsUnit": "personas",
+    "groups": [
+      {
+        "name": "Para el relleno",
+        "items": [
+          { "a": 4,   "u": "",    "n": "codornices limpias" },
+          { "a": 100, "u": "g",   "n": "cebolla" },
+          { "a": 2,   "u": "",    "n": "dientes de ajo" },
+          { "a": 100, "u": "g",   "n": "chorizo" },
+          { "a": 1,   "u": "cda", "n": "arroz" },
+          { "a": null,"u": "",    "n": "sal" }
+        ]
+      },
+      {
+        "name": "Para el líquido de asado",
+        "items": [
+          { "a": 100, "u": "ml", "n": "vino blanco" },
+          { "a": 100, "u": "ml", "n": "coñac o brandy" },
+          { "a": 150, "u": "ml", "n": "caldo de pollo" },
+          { "a": 1,   "u": "",   "n": "limón (jugo)" },
+          { "a": null,"u": "",   "n": "nuez, sal, pimienta negra" }
+        ]
+      }
+    ],
+    "steps": [
+      "Picar finamente cebolla y ajo. Freír a fuego medio con sal hasta que se ablande y empiece a caramelizar.",
+      "Agregar el arroz, integrar y sofreír 2 minutos. Añadir el chorizo en trocitos y sofreír 2 minutos más.",
+      "Mezclar en una jarra: vino blanco, coñac, caldo de pollo y el jugo de limón colado. Reservar.",
+      "Sellar las codornices antes de rellenarlas.",
+      "Rellenar cada codorniz con unas 2–2.5 cucharaditas del sofrito, sin sobrecargar.",
+      "Colocar en fuente de horno, añadir parte del líquido y hornear tapadas a 200°C por 20 minutos.",
+      "Sacar, dar vuelta a las codornices, añadir el resto del líquido y hornear destapadas otros 20 minutos a 200°C.",
+      "Añadir un poco más de salsa y gratinar 3 minutos hasta que estén doradas y crujientes por fuera."
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Conejo al Ajillo Frito",
+    "icon": "leaf",
+    "category": "fuerte",
+    "time": "35 min",
+    "servingsBase": 4,
+    "servingsUnit": "personas",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": 1,  "u": "",      "n": "conejo entero troceado" },
+          { "a": 8,  "u": "",      "n": "dientes de ajo pelados" },
+          { "a": 1,  "u": "vaso",  "n": "vino blanco" },
+          { "a": null,"u": "",     "n": "aceite de oliva" },
+          { "a": null,"u": "",     "n": "sal, Aromat" },
+          { "a": null,"u": "",     "n": "pimienta (opcional)" },
+          { "a": null,"u": "",     "n": "orégano (opcional)" }
+        ]
+      }
+    ],
+    "steps": [
+      "Picar los ajos en cubitos pequeños. Sofreír con una pizca de sal 2–3 minutos solo para aromatizar el aceite, sin que se tuesten. Reservar los ajos.",
+      "Subir el fuego del aceite aromatizado. Sazonar el conejo con Aromat.",
+      "Freír los trozos de conejo unos 7 minutos por lado, hasta que estén dorados por fuera y cocidos por dentro.",
+      "Añadir los ajos reservados, integrar y cocinar 20 segundos más.",
+      "Verter el vino blanco, añadir orégano si se desea y cocinar 2 minutos a fuego medio para evaporar el alcohol y formar la salsa.",
+      "Servir caliente."
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Suadero",
+    "icon": "leaf",
+    "category": "fuerte",
+    "time": "2 hrs",
+    "servingsBase": 4,
+    "servingsUnit": "personas",
+    "groups": [
+      {
+        "name": "Para la marinada",
+        "items": [
+          { "a": 1,    "u": "",      "n": "naranja (jugo)" },
+          { "a": 1,    "u": "",      "n": "limón (jugo)" },
+          { "a": 1,    "u": "",      "n": "clavo" },
+          { "a": null, "u": "",      "n": "salsa inglesa (al gusto)" },
+          { "a": null, "u": "",      "n": "Aromat (al gusto)" },
+          { "a": 0.5,  "u": "",      "n": "cebolla" },
+          { "a": 0.25, "u": "",      "n": "piña" },
+          { "a": null, "u": "",      "n": "orégano, pimienta, sal" },
+          { "a": 3,    "u": "",      "n": "dientes de ajo" }
+        ]
+      },
+      {
+        "name": "Carne",
+        "items": [
+          { "a": 500, "u": "g", "n": "costilla de res con un poco de grasa" }
+        ]
+      }
+    ],
+    "steps": [
+      "Licuar todos los ingredientes de la marinada.",
+      "Marinar la carne cruda mínimo 2 horas en la mezcla.",
+      "Hervir la carne con su marinada, agregar agua y cocinar a fuego medio por 1.5 horas, dependiendo el grosor."
+    ]
   }
 ]
