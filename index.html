@@ -88,7 +88,7 @@
     .mfilter-btn.active { background: var(--mint-light); border-color: var(--mint); color: var(--mint-dark); }
 
     /* RATING FILTER BAR */
-    .rating-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 8px 20px; display: flex; align-items: center; gap: 8px; overflow-x: auto; position: sticky; top: 90px; z-index: 48; }
+    .rating-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 8px 20px; display: flex; align-items: center; gap: 8px; overflow-x: auto; position: sticky; top: 46px; z-index: 48; }
     .rating-bar-label { font-size: 10px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; flex-shrink: 0; }
     .rfilter-btn { display: flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--white); cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text-mid); white-space: nowrap; transition: all 0.15s; -webkit-tap-highlight-color: transparent; flex-shrink: 0; }
     .rfilter-btn.active-e { background: #FFF8E7; border-color: var(--gold); color: #8A6A1A; }
@@ -96,78 +96,159 @@
     .rfilter-btn.active-a { background: var(--mint-light); border-color: var(--mint); color: var(--mint-dark); }
     .rfilter-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; }
 
-    /* GRID */
-    .grid { padding: 20px; display: grid; gap: 16px; }
+    /* GRID WRAPPER */
+    .grid { padding: 0; }
 
-    /* GROUP HEADER (vista Todas) */
-    .group-header {
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
-      color: var(--text-light); padding: 16px 4px 6px;
+    /* ── RECIPE TILE GRID ── */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      padding: 18px;
     }
-    .group-header:first-child { padding-top: 4px; }
-
-    /* CARD */
-    .card {
+    .recipe-tile {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 2px 14px rgba(0,0,0,0.07);
-      border: none;
-      transition: box-shadow 0.2s;
-    }
-    .card.expanded { box-shadow: 0 6px 28px rgba(0,0,0,0.12); }
-
-    /* On wider screens (iPad landscape): side-by-side split */
-    @media (min-width: 680px) {
-      .card.expanded { display: grid; grid-template-columns: 38% 1fr; }
-      .card.expanded .card-body.open { border-top: none; border-left: 1px solid rgba(255,255,255,0.25); }
-    }
-
-    /* CARD HEADER = left panel */
-    .card-header {
-      background: var(--mint-card);
-      padding: 22px 22px 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
       cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
+    }
+    .recipe-tile:active { transform: scale(0.97); box-shadow: 0 4px 18px rgba(0,0,0,0.13); }
+    .tile-top {
+      padding: 18px 16px 14px;
       display: flex;
       flex-direction: column;
       gap: 0;
+      min-height: 110px;
     }
-    .card-header-top {
+    .tile-badges { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+    .tile-name {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      flex: 1;
+    }
+    .tile-stars {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .tile-star-row { display: flex; align-items: center; gap: 2px; }
+    .tile-star-label { font-size: 9px; font-weight: 700; color: rgba(0,0,0,0.4); min-width: 38px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .mini-star { font-size: 11px; line-height: 1; color: rgba(0,0,0,0.15); }
+    .mini-star.e { color: var(--gold); }
+    .mini-star.k { color: var(--purple); }
+    .tile-bottom {
+      padding: 10px 16px;
+      background: white;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    .tile-meta {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--text-mid);
+      font-weight: 600;
     }
-    .card-header-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .tile-meta svg { width: 11px; height: 11px; color: var(--text-light); }
+    .tile-meat-tag {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .tile-meat-tag svg { width: 10px; height: 10px; }
 
+    /* ── DETAIL VIEW ── */
+    .back-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 11px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 46px;
+      z-index: 49;
+    }
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--mint);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .back-btn svg { width: 16px; height: 16px; }
+    .back-crumb { font-size: 12px; color: var(--text-light); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .detail-card {
+      margin: 16px;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.11);
+    }
+    @media (min-width: 680px) {
+      .detail-card { display: grid; grid-template-columns: 40% 1fr; }
+      .detail-right { border-top: none !important; border-left: 1px solid var(--border); }
+    }
+    .detail-left {
+      padding: 28px 24px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .detail-name {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 18px;
+      letter-spacing: -0.3px;
+    }
+    .detail-rating-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(0,0,0,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .detail-right {
+      background: var(--white);
+      padding: 24px 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* CARD NAME (used in detail) */
     .card-name {
       font-family: 'Merriweather', Georgia, serif;
       font-size: 21px;
       font-weight: 700;
       color: var(--text);
       line-height: 1.25;
-      margin-bottom: 6px;
-      letter-spacing: -0.2px;
     }
-
-    /* COMPLEXITY / RATING DISPLAY in header */
-    .card-rating-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--mint-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      margin-top: 10px;
-      margin-bottom: 4px;
-    }
-    .card-stars { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
-    .card-star-group { display: flex; align-items: center; gap: 3px; }
-    .card-star-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--mint-dark); opacity: 0.7; min-width: 42px; }
-    .mini-star { font-size: 13px; line-height: 1; color: rgba(0,0,0,0.15); }
-    .mini-star.e { color: var(--gold); }
-    .mini-star.k { color: var(--purple); }
+    .card-stars { display: flex; flex-direction: column; gap: 3px; }
 
     /* CATEGORY GRID (vista Todas) */
     .cat-grid {
@@ -214,17 +295,7 @@
       font-weight: 500;
     }
 
-    /* CHEVRON */
-    .chevron {
-      color: var(--mint-dark);
-      opacity: 0.6;
-      transition: transform 0.3s;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-    }
-    .chevron svg { width: 18px; height: 18px; }
-    .chevron.open { transform: rotate(180deg); }
+    /* MEAT BADGE */
 
     /* BADGE */
     .badge {
@@ -254,13 +325,6 @@
     }
     .meat-badge svg { width: 11px; height: 11px; }
 
-    /* CARD BODY = right panel */
-    .card-body {
-      display: none;
-      background: var(--white);
-      padding: 26px 24px;
-    }
-    .card-body.open { display: block; }
 
     /* STATS ROW (top of body) */
     .stats-row {
@@ -467,6 +531,17 @@ const CAT_META = {
 const CAT_ORDER = ['ensalada','salsa','fuerte','primer','postre'];
 
 const MEAT_LABEL = { aves:'Aves', conejo:'Conejo', pescado:'Pescado', res:'Res', cerdo:'Cerdo' };
+
+// Color palette per category — 5 shades each (light to dark variants)
+const CAT_PALETTE = {
+  ensalada: ['#B8D4CC','#8FBCAE','#D8EDE8','#6BA090','#E8F4F0'],
+  salsa:    ['#E8C090','#D4A070','#F5DCC0','#BF8050','#FAF0E0'],
+  fuerte:   ['#A8C8BC','#7DB0A0','#C5DDD6','#5A8A74','#DCEEE8'],
+  primer:   ['#C4ADE8','#A888D8','#D8CCF0','#8860C0','#EEE8F8'],
+  postre:   ['#E0B8D4','#C890B4','#F0D8EA','#B06898','#FAF0F6'],
+};
+
+let activeRecipeId = null;
 const MEAT_SVG = {
   aves:    `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>`,
   conejo:  `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3c0 3 1 5 2 6"/><path d="M18 3c0 3-1 5-2 6"/><path d="M8 9h8a4 4 0 0 1 4 4v1a6 6 0 0 1-12 0v-1a4 4 0 0 1 4-4h-4"/></svg>`,
@@ -731,31 +806,68 @@ function filterByRating(type) {
   render();
 }
 
-function cardHTML(r) {
+function tileColor(r, idx) {
+  const pal = CAT_PALETTE[r.category] || CAT_PALETTE.fuerte;
+  return pal[idx % pal.length];
+}
+
+function tileStarsHTML(recipeId) {
+  const rt = ratings[recipeId] || {};
+  let html = '';
+  if (rt.e || rt.k) {
+    html = '<div class="tile-stars">';
+    if (rt.e) html += `<div class="tile-star-row"><span class="tile-star-label">Karla</span>${Array.from({length:5},(_,i)=>`<span class="mini-star${i<rt.e?' e':''}">★</span>`).join('')}</div>`;
+    if (rt.k) html += `<div class="tile-star-row"><span class="tile-star-label">Edmundo</span>${Array.from({length:5},(_,i)=>`<span class="mini-star${i<rt.k?' k':''}">★</span>`).join('')}</div>`;
+    html += '</div>';
+  }
+  return html;
+}
+
+function recipeTileHTML(r, idx) {
+  const meta = CAT_META[r.category] || { label: r.category, badge: 'badge-fuerte' };
+  const bg = tileColor(r, idx);
+  const meatTag = r.meat ? `<span class="tile-meat-tag">${MEAT_SVG[r.meat]}${MEAT_LABEL[r.meat]}</span>` : '';
+  return `
+  <div class="recipe-tile" onclick="openRecipe(${r.id})">
+    <div class="tile-top" style="background:${bg}">
+      <div class="tile-badges">
+        <span class="badge ${meta.badge}">${meta.label}</span>
+      </div>
+      <div class="tile-name">${r.name}</div>
+      ${tileStarsHTML(r.id)}
+    </div>
+    <div class="tile-bottom">
+      <span class="tile-meta">${ICONS.clock} ${r.time}</span>
+      <span class="tile-meta">${ICONS.users} ${r.servingsBase} ${r.servingsUnit}</span>
+      ${meatTag}
+    </div>
+  </div>`;
+}
+
+function recipeDetailHTML(r) {
   const mult = multipliers[r.id];
   const meta = CAT_META[r.category] || { label: r.category, badge: 'badge-fuerte' };
-  const meatSVG = r.meat ? MEAT_SVG[r.meat] || '' : '';
-  const meatTag = r.meat ? `<span class="meat-badge">${meatSVG}${MEAT_LABEL[r.meat]}</span>` : '';
-  // Header background: lilac for primer/postre, mint for rest
-  const headerBg = (r.category === 'primer' || r.category === 'postre')
-    ? 'var(--lilac-card)' : 'var(--mint-card)';
-  const headerColor = (r.category === 'primer' || r.category === 'postre')
-    ? 'var(--lilac-dark)' : 'var(--mint-dark)';
+  const bg = (CAT_PALETTE[r.category] || CAT_PALETTE.fuerte)[0];
+  const meatTag = r.meat ? `<span class="meat-badge">${MEAT_SVG[r.meat]}${MEAT_LABEL[r.meat]}</span>` : '';
   return `
-  <div class="card" id="card-${r.id}">
-    <div class="card-header" style="background:${headerBg}" onclick="toggle(${r.id})">
-      <div class="card-header-top">
-        <div class="card-header-badges">
-          <span class="badge ${meta.badge}">${meta.label}</span>
-          ${meatTag}
-        </div>
-        <div class="chevron" style="color:${headerColor}" id="chev-${r.id}">${ICONS.chevron}</div>
+  <div class="back-bar">
+    <button class="back-btn" onclick="closeRecipe()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Volver
+    </button>
+    <span class="back-crumb">${CAT_META[r.category]?.label || ''}</span>
+  </div>
+  <div class="detail-card">
+    <div class="detail-left" style="background:${bg}">
+      <div class="detail-badges">
+        <span class="badge ${meta.badge}">${meta.label}</span>
+        ${meatTag}
       </div>
-      <div class="card-name">${r.name}</div>
-      <div class="card-rating-label" style="color:${headerColor}">Calificación</div>
-      <div id="ratings-${r.id}" class="header-ratings">${renderRatingInputs(r.id)}</div>
+      <div class="detail-name">${r.name}</div>
+      <div class="detail-rating-label">Calificación</div>
+      <div id="ratings-${r.id}">${renderRatingInputs(r.id)}</div>
     </div>
-    <div class="card-body" id="body-${r.id}">
+    <div class="detail-right">
       <div class="stats-row">
         <div class="stat-item">
           ${ICONS.clock}
@@ -782,14 +894,29 @@ function cardHTML(r) {
       <div class="divider"></div>
       <div class="section-title">Preparación</div>
       <ol class="step-list">
-        ${r.steps.map(s => `
-          <li class="step-item">
-            <div class="step-dot"></div>
-            <div class="step-text">${s}</div>
-          </li>`).join('')}
+        ${r.steps.map(s=>`<li class="step-item"><div class="step-dot"></div><div class="step-text">${s}</div></li>`).join('')}
       </ol>
     </div>
   </div>`;
+}
+
+function openRecipe(id) {
+  activeRecipeId = id;
+  const r = recipes.find(x => x.id === id);
+  document.getElementById('grid').innerHTML = recipeDetailHTML(r);
+  // Hide filter bars in detail view
+  document.getElementById('meat-bar').style.display = 'none';
+  document.getElementById('rating-bar').style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+function closeRecipe() {
+  activeRecipeId = null;
+  render();
+  // Restore filter bars for current tab
+  const show = currentFilter !== 'todas';
+  document.getElementById('rating-bar').style.display = show ? '' : 'none';
+  document.getElementById('meat-bar').style.display = (currentFilter === 'fuerte') ? '' : 'none';
 }
 
 function applyFilters(list) {
@@ -836,15 +963,14 @@ function render() {
     grid.innerHTML = renderCategoryGrid();
   } else {
     const filtered = applyFilters(recipes.filter(r => r.category === currentFilter));
-    grid.innerHTML = filtered.map(r => cardHTML(r)).join('') || '<p style="padding:24px;color:var(--text-light)">Sin resultados</p>';
+    if (!filtered.length) {
+      grid.innerHTML = '<p style="padding:24px;color:var(--text-light)">Sin resultados</p>';
+    } else {
+      grid.innerHTML = `<div class="recipe-grid">${filtered.map((r,i) => recipeTileHTML(r, i)).join('')}</div>`;
+    }
   }
 }
 
-function toggle(id) {
-  document.getElementById(`body-${id}`).classList.toggle('open');
-  document.getElementById(`chev-${id}`).classList.toggle('open');
-  document.getElementById(`card-${id}`).classList.toggle('expanded');
-}
 
 function setMult(id, mult, e) {
   e.stopPropagation();
@@ -852,21 +978,25 @@ function setMult(id, mult, e) {
   const recipe = recipes.find(r => r.id === id);
   document.getElementById(`ings-${id}`).innerHTML = renderIngredients(recipe, mult);
   document.getElementById(`srv-${id}`).textContent = `→ ${servingsText(recipe, mult)}`;
-  document.querySelectorAll(`#card-${id} .mult-btn`).forEach(btn => {
+  document.querySelectorAll(`.mult-btn`).forEach(btn => {
     const v = btn.textContent === '½×' ? 0.5 : btn.textContent === '1×' ? 1 : 2;
     btn.classList.toggle('active', v === mult);
   });
 }
 
 function filter(cat) {
+  activeRecipeId = null;
   currentFilter = cat;
   const cats = ['todas','ensalada','salsa','fuerte','primer','postre'];
   document.querySelectorAll('.tab').forEach((t, i) => {
     t.classList.toggle('active', cats[i] === cat);
   });
-  const show = cat !== 'todas';
-  document.getElementById('meat-bar').style.display = show ? '' : 'none';
-  document.getElementById('rating-bar').style.display = show ? '' : 'none';
+  // Meat filter only for platos fuertes
+  document.getElementById('meat-bar').style.display = (cat === 'fuerte') ? '' : 'none';
+  // Rating filter for all category tabs except todas
+  document.getElementById('rating-bar').style.display = (cat !== 'todas') ? '' : 'none';
+  // Reset rating-bar sticky top: if meat-bar hidden, stay at 46px; if shown, push down
+  document.getElementById('rating-bar').style.top = (cat === 'fuerte') ? '90px' : '46px';
   render();
 }
 
