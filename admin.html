@@ -159,8 +159,11 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
-    .tag-fuerte { background: var(--accent-light); color: var(--accent); }
-    .tag-snack { background: var(--sage-light); color: var(--sage); }
+    .tag-ensalada { background: #E8F5E9; color: #2E7D32; }
+    .tag-salsa    { background: #FFF3E0; color: #E65100; }
+    .tag-fuerte   { background: var(--sage-light); color: var(--sage); }
+    .tag-primer   { background: #E3F2FD; color: #1565C0; }
+    .tag-postre   { background: #FCE4EC; color: #AD1457; }
 
     /* Hide logged-out view when logged in */
     body.logged-in #login-screen { display: none; }
@@ -253,17 +256,34 @@
           <div class="field">
             <label>Categoría *</label>
             <select id="f-cat">
+              <option value="ensalada">Ensalada</option>
+              <option value="salsa">Salsa</option>
               <option value="fuerte">Plato Fuerte</option>
-              <option value="snack">Postre & Snack</option>
+              <option value="primer">Primer Plato</option>
+              <option value="postre">Postre</option>
             </select>
           </div>
         </div>
 
         <div class="field-row">
           <div class="field">
+            <label>Tipo de carne</label>
+            <select id="f-meat">
+              <option value="">— Ninguna / Vegetal —</option>
+              <option value="aves">Aves</option>
+              <option value="conejo">Conejo</option>
+              <option value="pescado">Pescado</option>
+              <option value="res">Res</option>
+              <option value="cerdo">Cerdo</option>
+            </select>
+          </div>
+          <div class="field">
             <label>Tiempo</label>
             <input type="text" id="f-time" placeholder="Ej: 30 min · 180°C">
           </div>
+        </div>
+
+        <div class="field-row">
           <div class="field">
             <label>Icono</label>
             <select id="f-icon">
@@ -320,7 +340,7 @@
 <script>
 // ── CONFIGURACIÓN ────────────────────────────────────────────────────────────
 // Cambia esta contraseña antes de publicar
-const ADMIN_PASSWORD = 'itali2024';
+const ADMIN_PASSWORD = 'recetario2024';
 
 // ── LOGIN ────────────────────────────────────────────────────────────────────
 function login() {
@@ -423,9 +443,9 @@ function renderRecipeList() {
       <div>
         <div class="recipe-item-name">${r.name}</div>
         <div class="recipe-item-meta">
-          <span class="tag ${r.category === 'fuerte' ? 'tag-fuerte' : 'tag-snack'}">
-            ${r.category === 'fuerte' ? 'Plato Fuerte' : 'Postre & Snack'}
-          </span>
+          <span class="tag tag-${r.category}">
+            ${{ ensalada:'Ensalada', salsa:'Salsa', fuerte:'Plato Fuerte', primer:'Primer Plato', postre:'Postre' }[r.category] || r.category}
+          </span>${r.meat ? ` <span class="tag" style="background:#F5F5F5;color:#666">${r.meat}</span>` : ''}
           &nbsp;· ${r.time} · ${r.servingsBase} ${r.servingsUnit}
         </div>
       </div>
@@ -508,6 +528,7 @@ function addStep(text = '') {
 function readForm() {
   const name = document.getElementById('f-name').value.trim();
   const category = document.getElementById('f-cat').value;
+  const meat = document.getElementById('f-meat').value || undefined;
   const time = document.getElementById('f-time').value.trim();
   const icon = document.getElementById('f-icon').value;
   const servingsBase = parseFloat(document.getElementById('f-servings').value) || 1;
@@ -541,7 +562,9 @@ function readForm() {
     if (t) steps.push(t);
   });
 
-  return { name, category, time, icon, servingsBase, servingsUnit, groups, steps };
+  const obj = { name, category, time, icon, servingsBase, servingsUnit, groups, steps };
+  if (meat) obj.meat = meat;
+  return obj;
 }
 
 // ── GUARDAR RECETA ───────────────────────────────────────────────────────────
@@ -572,6 +595,7 @@ async function saveRecipe() {
 function resetForm() {
   ['f-name','f-time','f-servings','f-unit'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f-cat').value = 'fuerte';
+  document.getElementById('f-meat').value = '';
   document.getElementById('f-icon').value = 'leaf';
   document.getElementById('groups-container').innerHTML = '';
   document.getElementById('steps-container').innerHTML = '';
