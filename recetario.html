@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Puchungis al Plato</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F2F7F5;
+      --white: #FFFFFF;
+      --mint: #5A8A74;
+      --mint-card: #BDD4CA;
+      --mint-light: #E8F2EE;
+      --mint-dark: #3D6B59;
+      --lilac: #9B7EC8;
+      --lilac-card: #D4C4EB;
+      --lilac-light: #EDE8F5;
+      --lilac-dark: #6B4FA0;
+      --text: #0C0A07;
+      --text-mid: #5B5552;
+      --text-light: #AFABA5;
+      --border: #E4DDD8;
+      --gold: #CFAB4D;
+      --purple: #9B59B6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--mint);
+      color: white;
+      padding: 40px 28px 32px;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    header p { font-size: 13px; opacity: 0.65; margin-top: 7px; letter-spacing: 0.8px; }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 20px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab {
+      padding: 15px 16px;
+      border: none;
+      border-bottom: 2.5px solid transparent;
+      background: transparent;
+      color: var(--text-light);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      letter-spacing: 0.2px;
+    }
+    .tab.active {
+      color: var(--mint);
+      border-bottom-color: var(--mint);
+      font-weight: 700;
+    }
+
+    /* MEAT FILTER */
+    .meat-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 8px 20px; display: flex; align-items: center; gap: 7px; overflow-x: auto; -webkit-overflow-scrolling: touch; position: sticky; top: 46px; z-index: 49; }
+    .meat-bar-label { font-size: 10px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; flex-shrink: 0; }
+    .mfilter-btn { display: flex; align-items: center; gap: 4px; padding: 5px 12px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--white); cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text-mid); white-space: nowrap; transition: all 0.15s; -webkit-tap-highlight-color: transparent; flex-shrink: 0; }
+    .mfilter-btn.active { background: var(--mint-light); border-color: var(--mint); color: var(--mint-dark); }
+
+    /* RATING FILTER BAR */
+    .rating-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 8px 20px; display: flex; align-items: center; gap: 8px; overflow-x: auto; position: sticky; top: 90px; z-index: 48; }
+    .rating-bar-label { font-size: 10px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; flex-shrink: 0; }
+    .rfilter-btn { display: flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--white); cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text-mid); white-space: nowrap; transition: all 0.15s; -webkit-tap-highlight-color: transparent; flex-shrink: 0; }
+    .rfilter-btn.active-e { background: #FFF8E7; border-color: var(--gold); color: #8A6A1A; }
+    .rfilter-btn.active-k { background: #F5EEF8; border-color: var(--purple); color: #7D3C98; }
+    .rfilter-btn.active-a { background: var(--mint-light); border-color: var(--mint); color: var(--mint-dark); }
+    .rfilter-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; }
+
+    /* GRID */
+    .grid { padding: 20px; display: grid; gap: 16px; }
+
+    /* GROUP HEADER (vista Todas) */
+    .group-header {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+      color: var(--text-light); padding: 16px 4px 6px;
+    }
+    .group-header:first-child { padding-top: 4px; }
+
+    /* CARD */
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+      border: none;
+      transition: box-shadow 0.2s;
+    }
+    .card.expanded { box-shadow: 0 6px 28px rgba(0,0,0,0.12); }
+
+    /* On wider screens (iPad landscape): side-by-side split */
+    @media (min-width: 680px) {
+      .card.expanded { display: grid; grid-template-columns: 38% 1fr; }
+      .card.expanded .card-body.open { border-top: none; border-left: 1px solid rgba(255,255,255,0.25); }
+    }
+
+    /* CARD HEADER = left panel */
+    .card-header {
+      background: var(--mint-card);
+      padding: 22px 22px 20px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .card-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .card-header-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+    .card-name {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    /* COMPLEXITY / RATING DISPLAY in header */
+    .card-rating-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mint-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+    .card-stars { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .card-star-group { display: flex; align-items: center; gap: 3px; }
+    .card-star-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--mint-dark); opacity: 0.7; min-width: 42px; }
+    .mini-star { font-size: 13px; line-height: 1; color: rgba(0,0,0,0.15); }
+    .mini-star.e { color: var(--gold); }
+    .mini-star.k { color: var(--purple); }
+
+    /* CATEGORY GRID (vista Todas) */
+    .cat-grid {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .cat-tile {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px 16px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .cat-tile:active { transform: scale(0.96); box-shadow: 0 4px 18px rgba(0,0,0,0.1); }
+    .cat-tile-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cat-tile-icon svg { width: 26px; height: 26px; }
+    .cat-tile-name {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.3;
+    }
+    .cat-tile-count {
+      font-size: 11px;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* CHEVRON */
+    .chevron {
+      color: var(--mint-dark);
+      opacity: 0.6;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+    .chevron svg { width: 18px; height: 18px; }
+    .chevron.open { transform: rotate(180deg); }
+
+    /* BADGE */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-ensalada { background: rgba(46,125,50,0.15); color: #2E7D32; }
+    .badge-salsa    { background: rgba(230,81,0,0.12); color: #BF460A; }
+    .badge-fuerte   { background: rgba(61,107,89,0.15); color: var(--mint-dark); }
+    .badge-primer   { background: var(--lilac-light); color: var(--lilac-dark); }
+    .badge-postre   { background: rgba(173,20,87,0.12); color: #AD1457; }
+
+    /* MEAT BADGE */
+    .meat-badge {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--mint-dark);
+      opacity: 0.65;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .meat-badge svg { width: 11px; height: 11px; }
+
+    /* CARD BODY = right panel */
+    .card-body {
+      display: none;
+      background: var(--white);
+      padding: 26px 24px;
+    }
+    .card-body.open { display: block; }
+
+    /* STATS ROW (top of body) */
+    .stats-row {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 0 8px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item svg { width: 20px; height: 20px; color: var(--mint); opacity: 0.8; }
+    .stat-label { font-size: 10px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-value { font-size: 15px; font-weight: 700; color: var(--text); }
+
+    /* MULTIPLIER */
+    .mult-section { margin-bottom: 26px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+    .section-title {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .mult-btns { display: flex; gap: 8px; align-items: center; }
+    .mult-btn {
+      padding: 9px 16px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--text-mid);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mult-btn.active {
+      background: var(--mint);
+      border-color: var(--mint);
+      color: white;
+    }
+    .mult-servings {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-left: 6px;
+      font-weight: 500;
+    }
+
+    /* GROUP TITLE (ingredient groups) */
+    .group-title {
+      font-size: 11px; font-weight: 700; color: var(--text-light);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin: 16px 0 8px; opacity: 0.75;
+    }
+
+    /* INGREDIENTS */
+    .ing-list { list-style: none; margin-bottom: 28px; }
+    .ing-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+    .ing-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--mint);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .ing-amount {
+      font-weight: 700;
+      color: var(--text);
+      min-width: 70px;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+    .ing-name { color: var(--text-mid); line-height: 1.4; font-size: 15px; }
+
+    /* STEPS */
+    .step-list { list-style: none; }
+    .step-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .step-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--mint);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .step-text { font-size: 15px; line-height: 1.7; color: var(--text-mid); }
+
+    .divider { height: 1px; background: var(--border); margin: 22px 0; }
+
+    /* RATING IN CARD HEADER */
+    .header-ratings { margin-top: 4px; }
+    .rating-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .rating-row:last-child { margin-bottom: 0; }
+    .rating-label { font-size: 12px; font-weight: 700; min-width: 64px; color: rgba(0,0,0,0.5); }
+    .stars-input { display: flex; gap: 2px; }
+    .star-btn { font-size: 22px; line-height: 1; background: none; border: none; cursor: pointer; padding: 2px; -webkit-tap-highlight-color: transparent; color: rgba(0,0,0,0.15); }
+    .star-btn.e { color: var(--gold); }
+    .star-btn.k { color: var(--purple); }
+    .rating-clear { font-size: 10px; color: rgba(0,0,0,0.35); background: none; border: none; cursor: pointer; padding: 3px; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Puchungis al Plato</h1>
+  <p>Recetas saludables y deliciosas</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="filter('todas')">Todas</button>
+  <button class="tab" onclick="filter('ensalada')">Ensaladas</button>
+  <button class="tab" onclick="filter('salsa')">Salsas</button>
+  <button class="tab" onclick="filter('fuerte')">Platos Fuertes</button>
+  <button class="tab" onclick="filter('primer')">Primer Plato</button>
+  <button class="tab" onclick="filter('postre')">Postres</button>
+</div>
+
+<div class="meat-bar" id="meat-bar">
+  <span class="meat-bar-label">Carne:</span>
+  <button class="mfilter-btn active" id="mfilter-all" onclick="filterMeat('all')">Todas</button>
+  <button class="mfilter-btn" id="mfilter-aves" onclick="filterMeat('aves')">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+    Aves
+  </button>
+  <button class="mfilter-btn" id="mfilter-conejo" onclick="filterMeat('conejo')">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3c0 3 1 5 2 6"/><path d="M18 3c0 3-1 5-2 6"/><path d="M8 9h8a4 4 0 0 1 4 4v1a6 6 0 0 1-12 0v-1a4 4 0 0 1 4-4h-4"/><circle cx="10" cy="16" r="0.8" fill="currentColor" stroke="none"/><circle cx="14" cy="16" r="0.8" fill="currentColor" stroke="none"/></svg>
+    Conejo
+  </button>
+  <button class="mfilter-btn" id="mfilter-pescado" onclick="filterMeat('pescado')">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12c0 0 2.5-5 9-5 0 3.5-1.5 5-1.5 5s1.5 1.5 1.5 5c-6.5 0-9-5-9-5z"/><path d="M3 9l3.5 3L3 15"/><circle cx="13" cy="10" r="0.8" fill="currentColor" stroke="none"/></svg>
+    Pescado
+  </button>
+  <button class="mfilter-btn" id="mfilter-res" onclick="filterMeat('res')">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+    Res
+  </button>
+  <button class="mfilter-btn" id="mfilter-cerdo" onclick="filterMeat('cerdo')">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><ellipse cx="12" cy="14" rx="3.5" ry="2"/><circle cx="10.5" cy="14" r="0.7" fill="currentColor" stroke="none"/><circle cx="13.5" cy="14" r="0.7" fill="currentColor" stroke="none"/><path d="M8.5 8.5c-.5-1.5 0-3 1.5-3.5"/><path d="M15.5 8.5c.5-1.5 0-3-1.5-3.5"/></svg>
+    Cerdo
+  </button>
+</div>
+
+<div class="rating-bar" id="rating-bar">
+  <span class="rating-bar-label">Filtrar:</span>
+  <button class="rfilter-btn active-a" id="rfilter-all" onclick="filterByRating('all')">Todas</button>
+  <button class="rfilter-btn" id="rfilter-e5" onclick="filterByRating('e5')">★ Karla 5/5</button>
+  <button class="rfilter-btn" id="rfilter-k5" onclick="filterByRating('k5')">★ Edmundo 5/5</button>
+  <button class="rfilter-btn" id="rfilter-rated" onclick="filterByRating('rated')">Calificadas</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const ICONS = {
+  leaf: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+  cupcake: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11h14l-2 9H7z"/><path d="M4.5 8.5C4.5 6 6.5 4 9 4c.4-1.2 1.6-2 3-2s2.6.8 3 2c2.5 0 4.5 2 4.5 4.5H4.5z"/><path d="M9.5 11v9"/><path d="M14.5 11v9"/></svg>`,
+  wheat: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22 12 2"/><path d="M7 12c-1.7-1.7-2-4.5-.6-6.6"/><path d="M17 12c1.7-1.7 2-4.5.6-6.6"/><path d="M12 12c0-2.4-1.4-4.5-3.5-5.5"/><path d="M12 12c0-2.4 1.4-4.5 3.5-5.5"/><path d="M9.5 19.5c-1.7-1.7-2-4.5-.6-6.6"/><path d="M14.5 19.5c1.7-1.7 2-4.5.6-6.6"/></svg>`,
+  zap: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+  clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  users: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  list: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>`,
+  steps: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="9" y1="9" x2="11" y2="9"/></svg>`,
+  sliders: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>`,
+  spoon:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V22h8v-7.26C17.81 13.47 19 11.38 19 9c0-3.87-3.13-7-7-7z"/></svg>`,
+  forkknife:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
+  bowl:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 0 0-9 9c0 3.87 2.46 7.18 6 8.5V21h6v-1.5c3.54-1.32 6-4.63 6-8.5a9 9 0 0 0-9-9z"/><path d="M9 21h6"/></svg>`,
+};
+
+let recipes = [];
+let ratings = JSON.parse(localStorage.getItem('recetario-ratings') || '{}');
+let ratingFilter = 'all';
+let meatFilter = 'all';
+
+const CAT_META = {
+  ensalada: { label: 'Ensaladas',     badge: 'badge-ensalada' },
+  salsa:    { label: 'Salsas',        badge: 'badge-salsa'    },
+  fuerte:   { label: 'Platos Fuertes',badge: 'badge-fuerte'   },
+  primer:   { label: 'Primer Plato',  badge: 'badge-primer'   },
+  postre:   { label: 'Postres',       badge: 'badge-postre'   },
+};
+const CAT_ORDER = ['ensalada','salsa','fuerte','primer','postre'];
+
+const MEAT_LABEL = { aves:'Aves', conejo:'Conejo', pescado:'Pescado', res:'Res', cerdo:'Cerdo' };
+const MEAT_SVG = {
+  aves:    `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>`,
+  conejo:  `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3c0 3 1 5 2 6"/><path d="M18 3c0 3-1 5-2 6"/><path d="M8 9h8a4 4 0 0 1 4 4v1a6 6 0 0 1-12 0v-1a4 4 0 0 1 4-4h-4"/></svg>`,
+  pescado: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12c0 0 2.5-5 9-5 0 3.5-1.5 5-1.5 5s1.5 1.5 1.5 5c-6.5 0-9-5-9-5z"/><path d="M3 9l3.5 3L3 15"/></svg>`,
+  res:     `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+  cerdo:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><ellipse cx="12" cy="14" rx="3.5" ry="2"/></svg>`,
+};
+
+// ── Datos embebidos (fallback offline) ───────────────────────────────────────
+const EMBEDDED = [
+  {
+    id: 1,
+    name: "Ensalada de Salmón Ahumado",
+    icon: "leaf",
+    category: "fuerte",
+    time: "15 min",
+    servingsBase: 4,
+    servingsUnit: "personas",
+    groups: [
+      {
+        name: "Para la ensalada",
+        items: [
+          { a: 200, u: "g",  n: "salmón ahumado" },
+          { a: 1,   u: "",   n: "hinojo grande" },
+          { a: null,u: "",   n: "aceitunas verdes (al gusto)" },
+          { a: null,u: "",   n: "granada (al gusto)" },
+          { a: null,u: "",   n: "granillo de pistacho (al gusto)" },
+          { a: null,u: "",   n: "sal y pimienta (al gusto)" },
+          { a: null,u: "",   n: "aceite de oliva extra virgen (al gusto)" },
+        ]
+      },
+      {
+        name: "Para la vinagreta",
+        items: [
+          { a: 30,  u: "ml", n: "jugo de naranja" },
+          { a: 20,  u: "ml", n: "jugo de limón" },
+          { a: 50,  u: "ml", n: "aceite de oliva extra virgen" },
+          { a: null,u: "",   n: "pimienta (al gusto)" },
+        ]
+      }
+    ],
+    steps: [
+      "Lava el hinojo y córtalo en láminas muy finas (puedes usar una mandolina). Reserva las hojas verdes para decorar al final.",
+      "Corta o desmenuza el salmón ahumado en trozos medianos.",
+      "Prepara la vinagreta: en un frasco o tazón pequeño, mezcla el jugo de naranja, el jugo de limón y el aceite de oliva. Añade pimienta al gusto y agita bien.",
+      "En una fuente amplia, coloca las láminas de hinojo como base. Distribuye el salmón encima.",
+      "Agrega las aceitunas verdes, los granos de granada y el granillo de pistacho.",
+      "Rocía la vinagreta sobre la ensalada justo antes de servir. Decora con las hojas del hinojo y sirve de inmediato."
+    ]
+  },
+  {
+    id: 2,
+    name: "Muffins de Banana y Zanahoria",
+    icon: "cupcake",
+    category: "snack",
+    time: "25 min · 180°C",
+    servingsBase: 6,
+    servingsUnit: "muffins",
+    groups: [
+      {
+        name: null,
+        items: [
+          { a: 1,     u: "",      n: "banana madura, machacada" },
+          { a: 1,     u: "",      n: "zanahoria mediana, rallada" },
+          { a: 1,     u: "taza",  n: "harina leudante integral" },
+          { a: 1/3,   u: "taza",  n: "leche baja en grasa" },
+          { a: 1,     u: "",      n: "huevo" },
+          { a: 2,     u: "cdas",  n: "miel" },
+        ]
+      }
+    ],
+    steps: [
+      "Precalienta el horno a 180°C. Forra un molde de 6 muffins con moldes de papel.",
+      "Coloca la harina leudante en un tazón grande.",
+      "En otro recipiente, mezcla la banana machacada con el huevo, la leche y la miel.",
+      "Agrega la mezcla húmeda a la harina junto con la zanahoria rallada. Mezcla con movimientos suaves hasta combinar (no sobre-mezcles).",
+      "Divide la mezcla equitativamente entre los 6 moldes.",
+      "Hornea 15 minutos o hasta que estén dorados y un palillo insertado salga limpio.",
+      "Deja enfriar sobre una rejilla antes de servir."
+    ]
+  },
+  {
+    id: 3,
+    name: "Pan de Avena con Manzana",
+    icon: "wheat",
+    category: "snack",
+    time: "50 min · 180°C",
+    servingsBase: 8,
+    servingsUnit: "rebanadas",
+    groups: [
+      {
+        name: null,
+        items: [
+          { a: 100,  u: "g (1 taza)", n: "copos de avena" },
+          { a: 3,    u: "",           n: "manzanas medianas" },
+          { a: 120,  u: "ml",         n: "agua (½ taza)" },
+          { a: 1,    u: "",           n: "plátano maduro" },
+          { a: 100,  u: "g",          n: "arándanos secos" },
+          { a: 100,  u: "g",          n: "pasas" },
+        ]
+      }
+    ],
+    steps: [
+      "Precalienta el horno a 180°C. Engrasa un molde para pan o fórralo con papel encerado.",
+      "Pela y ralla 2 manzanas. Corta la tercera en láminas finas para decorar la superficie.",
+      "Machaca el plátano en un tazón grande hasta obtener un puré.",
+      "Agrega la avena y el agua. Mezcla bien y deja reposar 5 minutos para que la avena absorba el líquido.",
+      "Incorpora las manzanas ralladas, los arándanos secos y las pasas. Mezcla hasta integrar.",
+      "Vierte la mezcla en el molde y decora la superficie con las láminas de manzana.",
+      "Hornea 35–40 minutos o hasta que un palillo insertado en el centro salga limpio.",
+      "Deja enfriar completamente antes de desmoldar y cortar. Conservar en el refrigerador."
+    ]
+  },
+  {
+    id: 4,
+    name: "Barras de Proteína Caseras",
+    icon: "zap",
+    category: "snack",
+    time: "20 min + 2 h frío",
+    servingsBase: 8,
+    servingsUnit: "barras",
+    groups: [
+      {
+        name: "Para la base",
+        items: [
+          { a: 1.5,  u: "tazas", n: "avena molida (licuada gruesa)" },
+          { a: 0.5,  u: "taza",  n: "proteína en polvo (vainilla o sin sabor)" },
+          { a: 0.25, u: "taza",  n: "almendras molidas" },
+          { a: 1/3,  u: "taza",  n: "mantequilla de frutos secos (cajú o almendra)" },
+          { a: 0.25, u: "taza",  n: "leche (la de tu elección)" },
+          { a: 3.5,  u: "cdas",  n: "miel o jarabe de maple" },
+          { a: 1,    u: "cdita", n: "extracto de vainilla" },
+          { a: 3,    u: "cdas",  n: "chips de chocolate oscuro mini" },
+          { a: null, u: "",      n: "pizca de sal" },
+        ]
+      },
+      {
+        name: "Para la cobertura",
+        items: [
+          { a: 0.5,  u: "taza",  n: "chocolate oscuro" },
+          { a: 1,    u: "cdita", n: "aceite de coco" },
+          { a: 1,    u: "cda",   n: "mantequilla de frutos secos" },
+        ]
+      }
+    ],
+    steps: [
+      "Forra un molde pequeño para pan o cuadrado con papel encerado.",
+      "En un tazón, combina la avena molida, la proteína en polvo, las almendras molidas y la sal.",
+      "En otro recipiente, mezcla la mantequilla de frutos secos, la leche, la miel y la vainilla hasta obtener una mezcla suave.",
+      "Vierte los ingredientes húmedos en los secos y mezcla hasta obtener una masa espesa y moldeable (similar a masa de galletas). Incorpora los chips de chocolate.",
+      "Presiona la mezcla firmemente en el molde asegurándote de que quede pareja y compacta.",
+      "Refrigera 1–2 horas hasta que esté firme.",
+      "Derrite el chocolate con el aceite de coco (a baño María o en microondas en intervalos de 30 seg). Incorpora la mantequilla de frutos secos y mezcla.",
+      "Vierte la cobertura de chocolate sobre las barras frías y regresa al refrigerador hasta que el chocolate endurezca (aprox. 30 min).",
+      "Corta en 8 barras. Guarda en el refrigerador en un recipiente hermético por hasta 1 semana."
+    ]
+  }
+];
+
+// State
+const multipliers = {};
+let currentFilter = 'todas';
+
+function initRecipes(data) {
+  recipes = data;
+  recipes.forEach(r => { if (!multipliers[r.id]) multipliers[r.id] = 1; });
+}
+
+// Fraction display
+function fmtAmount(amount, mult) {
+  if (amount === null) return '';
+  const val = amount * mult;
+  const fracs = [
+    [1/8,'⅛'],[1/4,'¼'],[1/3,'⅓'],[3/8,'⅜'],
+    [1/2,'½'],[5/8,'⅝'],[2/3,'⅔'],[3/4,'¾'],[7/8,'⅞']
+  ];
+  const int = Math.floor(val);
+  const dec = val - int;
+  let fStr = '';
+  for (const [f, s] of fracs) {
+    if (Math.abs(dec - f) < 0.025) { fStr = s; break; }
+  }
+  if (int === 0 && fStr) return fStr;
+  if (fStr) return int + ' ' + fStr;
+  if (Math.abs(val - Math.round(val)) < 0.025) return Math.round(val).toString();
+  return val.toFixed(1);
+}
+
+function renderIngredients(recipe, mult) {
+  return recipe.groups.map(g => {
+    let html = '';
+    if (g.name) html += `<div class="group-title">${g.name}</div>`;
+    html += '<ul class="ing-list">';
+    for (const ing of g.items) {
+      const amt = fmtAmount(ing.a, mult);
+      const unit = ing.u ? ' ' + ing.u : '';
+      html += `<li class="ing-item">
+        <div class="ing-dot"></div>
+        <span class="ing-amount">${amt}${unit}</span>
+        <span class="ing-name">${ing.n}</span>
+      </li>`;
+    }
+    html += '</ul>';
+    return html;
+  }).join('');
+}
+
+function servingsText(recipe, mult) {
+  const n = recipe.servingsBase * mult;
+  const num = Number.isInteger(n) ? n : (n % 1 === 0.5 ? n : n.toFixed(1));
+  return `${num} ${recipe.servingsUnit}`;
+}
+
+function renderMiniStars(recipeId) {
+  const r = ratings[recipeId] || {};
+  let html = '';
+  if (r.e) {
+    html += `<span class="card-star-group"><span class="card-star-label">Yo</span>` +
+      Array.from({length:5}, (_,i) => `<span class="mini-star${i<r.e?' e':''}">★</span>`).join('') + `</span>`;
+  }
+  if (r.k) {
+    html += `<span class="card-star-group"><span class="card-star-label">Edmundo</span>` +
+      Array.from({length:5}, (_,i) => `<span class="mini-star${i<r.k?' k':''}">★</span>`).join('') + `</span>`;
+  }
+  return html;
+}
+
+function renderRatingInputs(recipeId) {
+  const r = ratings[recipeId] || {};
+  const row = (person, label, cls) => {
+    const stars = Array.from({length:5}, (_,i) =>
+      `<button class="star-btn${r[person]>=i+1?' '+cls:''}" onclick="event.stopPropagation();saveRating(${recipeId},'${person}',${i+1})">★</button>`
+    ).join('');
+    const clear = r[person] ? `<button class="rating-clear" onclick="event.stopPropagation();clearRating(${recipeId},'${person}')">limpiar</button>` : '';
+    return `<div class="rating-row"><span class="rating-label">${label}</span><div class="stars-input">${stars}</div>${clear}</div>`;
+  };
+  return row('e','Karla','e') + row('k','Edmundo','k');
+}
+
+function saveRating(recipeId, person, value) {
+  if (!ratings[recipeId]) ratings[recipeId] = {};
+  ratings[recipeId][person] = (ratings[recipeId][person] === value) ? undefined : value;
+  if (!ratings[recipeId][person]) delete ratings[recipeId][person];
+  if (!Object.keys(ratings[recipeId]).length) delete ratings[recipeId];
+  localStorage.setItem('recetario-ratings', JSON.stringify(ratings));
+  const ratingEl = document.getElementById(`ratings-${recipeId}`);
+  if (ratingEl) ratingEl.innerHTML = renderRatingInputs(recipeId);
+}
+
+function clearRating(recipeId, person) {
+  if (ratings[recipeId]) { delete ratings[recipeId][person]; if (!Object.keys(ratings[recipeId]).length) delete ratings[recipeId]; }
+  localStorage.setItem('recetario-ratings', JSON.stringify(ratings));
+  const ratingEl = document.getElementById(`ratings-${recipeId}`);
+  if (ratingEl) ratingEl.innerHTML = renderRatingInputs(recipeId);
+}
+
+function filterByRating(type) {
+  ratingFilter = type;
+  document.querySelectorAll('.rfilter-btn').forEach(b => b.classList.remove('active-e','active-k','active-a'));
+  const map = { all:'active-a', e5:'active-e', k5:'active-k', rated:'active-a' };
+  document.getElementById('rfilter-'+type).classList.add(map[type]);
+  render();
+}
+
+function cardHTML(r) {
+  const mult = multipliers[r.id];
+  const meta = CAT_META[r.category] || { label: r.category, badge: 'badge-fuerte' };
+  const meatSVG = r.meat ? MEAT_SVG[r.meat] || '' : '';
+  const meatTag = r.meat ? `<span class="meat-badge">${meatSVG}${MEAT_LABEL[r.meat]}</span>` : '';
+  // Header background: lilac for primer/postre, mint for rest
+  const headerBg = (r.category === 'primer' || r.category === 'postre')
+    ? 'var(--lilac-card)' : 'var(--mint-card)';
+  const headerColor = (r.category === 'primer' || r.category === 'postre')
+    ? 'var(--lilac-dark)' : 'var(--mint-dark)';
+  return `
+  <div class="card" id="card-${r.id}">
+    <div class="card-header" style="background:${headerBg}" onclick="toggle(${r.id})">
+      <div class="card-header-top">
+        <div class="card-header-badges">
+          <span class="badge ${meta.badge}">${meta.label}</span>
+          ${meatTag}
+        </div>
+        <div class="chevron" style="color:${headerColor}" id="chev-${r.id}">${ICONS.chevron}</div>
+      </div>
+      <div class="card-name">${r.name}</div>
+      <div class="card-rating-label" style="color:${headerColor}">Calificación</div>
+      <div id="ratings-${r.id}" class="header-ratings">${renderRatingInputs(r.id)}</div>
+    </div>
+    <div class="card-body" id="body-${r.id}">
+      <div class="stats-row">
+        <div class="stat-item">
+          ${ICONS.clock}
+          <span class="stat-label">Tiempo</span>
+          <span class="stat-value">${r.time}</span>
+        </div>
+        <div class="stat-item">
+          ${ICONS.users}
+          <span class="stat-label">Porciones</span>
+          <span class="stat-value">${r.servingsBase} ${r.servingsUnit}</span>
+        </div>
+      </div>
+      <div class="mult-section">
+        <div class="section-title">Cantidades</div>
+        <div class="mult-btns">
+          <button class="mult-btn ${mult===0.5?'active':''}" onclick="setMult(${r.id},0.5,event)">½×</button>
+          <button class="mult-btn ${mult===1?'active':''}" onclick="setMult(${r.id},1,event)">1×</button>
+          <button class="mult-btn ${mult===2?'active':''}" onclick="setMult(${r.id},2,event)">2×</button>
+          <span class="mult-servings" id="srv-${r.id}">${servingsText(r, mult)}</span>
+        </div>
+      </div>
+      <div class="section-title">Ingredientes</div>
+      <div id="ings-${r.id}">${renderIngredients(r, mult)}</div>
+      <div class="divider"></div>
+      <div class="section-title">Preparación</div>
+      <ol class="step-list">
+        ${r.steps.map(s => `
+          <li class="step-item">
+            <div class="step-dot"></div>
+            <div class="step-text">${s}</div>
+          </li>`).join('')}
+      </ol>
+    </div>
+  </div>`;
+}
+
+function applyFilters(list) {
+  let out = list;
+  if (meatFilter !== 'all') out = out.filter(r => r.meat === meatFilter);
+  if (ratingFilter === 'e5') out = out.filter(r => (ratings[r.id]||{}).e >= 5);
+  else if (ratingFilter === 'k5') out = out.filter(r => (ratings[r.id]||{}).k >= 5);
+  else if (ratingFilter === 'rated') out = out.filter(r => ratings[r.id] && ((ratings[r.id].e||0)+(ratings[r.id].k||0)>0));
+  return out;
+}
+
+const CAT_ICONS = {
+  ensalada: 'leaf',
+  salsa:    'spoon',
+  fuerte:   'forkknife',
+  primer:   'bowl',
+  postre:   'cupcake',
+};
+const CAT_TILE_STYLE = {
+  ensalada: 'background:var(--mint-light);color:var(--mint)',
+  salsa:    'background:#FFF3E0;color:#C25A0A',
+  fuerte:   'background:var(--mint-light);color:var(--mint-dark)',
+  primer:   'background:var(--lilac-light);color:var(--lilac-dark)',
+  postre:   'background:#FCE4EC;color:#AD1457',
+};
+
+function renderCategoryGrid() {
+  return '<div class="cat-grid">' + CAT_ORDER.map(cat => {
+    const count = recipes.filter(r => r.category === cat).length;
+    if (!count) return '';
+    const meta = CAT_META[cat];
+    const icon = ICONS[CAT_ICONS[cat]] || ICONS.leaf;
+    return `<div class="cat-tile" onclick="filter('${cat}')">
+      <div class="cat-tile-icon" style="${CAT_TILE_STYLE[cat]}">${icon}</div>
+      <div class="cat-tile-name">${meta.label}</div>
+      <div class="cat-tile-count">${count} ${count===1?'receta':'recetas'}</div>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  if (currentFilter === 'todas') {
+    grid.innerHTML = renderCategoryGrid();
+  } else {
+    const filtered = applyFilters(recipes.filter(r => r.category === currentFilter));
+    grid.innerHTML = filtered.map(r => cardHTML(r)).join('') || '<p style="padding:24px;color:var(--text-light)">Sin resultados</p>';
+  }
+}
+
+function toggle(id) {
+  document.getElementById(`body-${id}`).classList.toggle('open');
+  document.getElementById(`chev-${id}`).classList.toggle('open');
+  document.getElementById(`card-${id}`).classList.toggle('expanded');
+}
+
+function setMult(id, mult, e) {
+  e.stopPropagation();
+  multipliers[id] = mult;
+  const recipe = recipes.find(r => r.id === id);
+  document.getElementById(`ings-${id}`).innerHTML = renderIngredients(recipe, mult);
+  document.getElementById(`srv-${id}`).textContent = `→ ${servingsText(recipe, mult)}`;
+  document.querySelectorAll(`#card-${id} .mult-btn`).forEach(btn => {
+    const v = btn.textContent === '½×' ? 0.5 : btn.textContent === '1×' ? 1 : 2;
+    btn.classList.toggle('active', v === mult);
+  });
+}
+
+function filter(cat) {
+  currentFilter = cat;
+  const cats = ['todas','ensalada','salsa','fuerte','primer','postre'];
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', cats[i] === cat);
+  });
+  const show = cat !== 'todas';
+  document.getElementById('meat-bar').style.display = show ? '' : 'none';
+  document.getElementById('rating-bar').style.display = show ? '' : 'none';
+  render();
+}
+
+function filterMeat(meat) {
+  meatFilter = meat;
+  document.querySelectorAll('.mfilter-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('mfilter-'+meat).classList.add('active');
+  render();
+}
+
+// ── Inicialización: intenta cargar recipes.json, fallback a datos embebidos ──
+(async function init() {
+  try {
+    const res = await fetch('recipes.json');
+    if (!res.ok) throw new Error('no json');
+    const data = await res.json();
+    initRecipes(data);
+  } catch {
+    initRecipes(EMBEDDED);
+  }
+  // Hide filters on initial load (default tab is Todas)
+  document.getElementById('meat-bar').style.display = 'none';
+  document.getElementById('rating-bar').style.display = 'none';
+  render();
+})();
+</script>
+</body>
+</html>
