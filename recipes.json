@@ -327,5 +327,390 @@
       "Marinar la carne cruda mínimo 2 horas en la mezcla.",
       "Hervir la carne con su marinada, agregar agua y cocinar a fuego medio por 1.5 horas, dependiendo el grosor."
     ]
+  },
+  {
+    "id": 10,
+    "name": "Brownie de Chocolate",
+    "icon": "zap",
+    "category": "postre",
+    "time": "30 min · 180°C",
+    "servingsBase": 12,
+    "servingsUnit": "porciones",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": 180,  "u": "g",     "n": "mantequilla" },
+          { "a": 2,    "u": "tazas", "n": "azúcar" },
+          { "a": 4,    "u": "",      "n": "huevos" },
+          { "a": null, "u": "",      "n": "vainilla (al gusto)" },
+          { "a": null, "u": "",      "n": "chocolate (al gusto)" },
+          { "a": 1,    "u": "taza",  "n": "harina" }
+        ]
+      }
+    ],
+    "steps": [
+      "Precalienta el horno a 180°C. Engrasa y enharina un molde cuadrado o rectangular.",
+      "Si deseas hacer dos tipos de chocolate, divide todos los ingredientes en dos mitades.",
+      "Mezcla 1 — en un tazón bate huevos + azúcar + vainilla hasta integrar bien.",
+      "Mezcla 2 — derrite la mantequilla junto con el chocolate a baño María o en microondas a intervalos de 30 segundos.",
+      "Une las dos mezclas: agrega la mezcla de huevos a la de mantequilla con chocolate y mezcla.",
+      "Agrega la harina envolviendo suavemente con una espátula, sin sobre-mezclar.",
+      "Vierte en el molde preparado y hornea a 180°C durante 30 minutos.",
+      "Deja enfriar completamente antes de cortar en cuadros."
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Ensalada de Pepino con Garbanzos y Quinoa",
+    "icon": "leaf",
+    "category": "ensalada",
+    "time": "20 min",
+    "servingsBase": 4,
+    "servingsUnit": "personas",
+    "groups": [
+      {
+        "name": "Para la ensalada",
+        "items": [
+          { "a": 1,    "u": "taza", "n": "quinoa cocida" },
+          { "a": 1,    "u": "taza", "n": "pepino en triángulos con cáscara" },
+          { "a": 0.5,  "u": "taza", "n": "perejil picado finamente" },
+          { "a": 0.333,"u": "taza", "n": "menta picada finamente" },
+          { "a": 0.333,"u": "taza", "n": "cebolla morada finamente picada" },
+          { "a": 0.5,  "u": "taza", "n": "pistaches" },
+          { "a": 0.5,  "u": "taza", "n": "queso feta desmoronado" },
+          { "a": 1,    "u": "taza", "n": "garbanzos cocidos" }
+        ]
+      },
+      {
+        "name": "Vinagreta de cúrcuma",
+        "items": [
+          { "a": 0.5,  "u": "cdita", "n": "cúrcuma" },
+          { "a": 1,    "u": "cdita", "n": "mostaza Dijon" },
+          { "a": 2,    "u": "cdas",  "n": "vinagre de manzana o blanco" },
+          { "a": null, "u": "",      "n": "jugo de medio limón" },
+          { "a": 1,    "u": "cdita", "n": "miel" },
+          { "a": 3,    "u": "cdas",  "n": "aceite de oliva" },
+          { "a": null, "u": "",      "n": "sal y pimienta al gusto" }
+        ]
+      }
+    ],
+    "steps": [
+      "Cocina la quinoa según las instrucciones del paquete. Deja enfriar.",
+      "Prepara la vinagreta: mezcla la cúrcuma, mostaza Dijon, vinagre, jugo de limón y miel. Agrega el aceite de oliva en hilo fino batiendo constantemente. Sazona con sal y pimienta.",
+      "En un tazón grande, combina la quinoa fría, el pepino, el perejil, la menta y la cebolla morada.",
+      "Agrega los garbanzos y los pistaches. Mezcla bien.",
+      "Vierte la vinagreta sobre la ensalada y revuelve para cubrir todo uniformemente.",
+      "Termina con el queso feta desmoronado por encima. Sirve de inmediato o refrigera hasta el momento de servir."
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Galletas de Chocolate Chip",
+    "icon": "zap",
+    "category": "postre",
+    "time": "10 min · 190°C",
+    "servingsBase": 24,
+    "servingsUnit": "galletas",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": 230,  "u": "g",     "n": "mantequilla con sal, suavizada" },
+          { "a": 1,    "u": "taza",  "n": "azúcar blanca" },
+          { "a": 1,    "u": "taza",  "n": "azúcar morena clara, compacta" },
+          { "a": 2,    "u": "cditas","n": "extracto de vainilla puro" },
+          { "a": 2,    "u": "",      "n": "huevos grandes" },
+          { "a": 3,    "u": "tazas", "n": "harina" },
+          { "a": 1,    "u": "cdita", "n": "bicarbonato de sodio" },
+          { "a": 0.5,  "u": "cdita", "n": "polvo para hornear" },
+          { "a": 1,    "u": "cdita", "n": "sal de mar" },
+          { "a": 340,  "u": "g",     "n": "chispas de chocolate (o chocolate picado)" }
+        ]
+      }
+    ],
+    "steps": [
+      "Precalienta el horno a 190°C (375°F). Forra una bandeja para hornear con papel encerado.",
+      "En un tazón, mezcla la harina, el bicarbonato, la sal y el polvo para hornear. Reserva.",
+      "En otro tazón grande, bate la mantequilla con las dos azúcares hasta obtener una mezcla cremosa.",
+      "Agrega los huevos y la vainilla. Bate hasta que la mezcla esté esponjosa.",
+      "Incorpora los ingredientes secos a la mezcla húmeda y mezcla hasta combinar.",
+      "Agrega las chispas de chocolate y mezcla bien.",
+      "Forma bolitas de masa de 2–3 cucharadas cada una y colócalas con espacio entre ellas en la bandeja.",
+      "Hornea 8–10 minutos, hasta que empiecen a dorarse ligeramente por las orillas. ¡No las sobre-hornees!",
+      "Deja reposar 2 minutos en la bandeja antes de pasar a una rejilla para enfriar."
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Chorizo Casero",
+    "icon": "leaf",
+    "category": "fuerte",
+    "meat": "cerdo",
+    "time": "30 min + noche de reposo",
+    "servingsBase": 6,
+    "servingsUnit": "personas",
+    "groups": [
+      {
+        "name": "Carne",
+        "items": [
+          { "a": 550,  "u": "g",    "n": "carne molida de cerdo" },
+          { "a": 150,  "u": "g",    "n": "tocino natural o pancetta, picado finamente" }
+        ]
+      },
+      {
+        "name": "Chiles (o sustituir por paprika)",
+        "items": [
+          { "a": 2,    "u": "",      "n": "chiles guajillo (o 2 cdas. de paprika)" },
+          { "a": 1,    "u": "",      "n": "chile ancho (o 1 cda. de paprika)" },
+          { "a": 1,    "u": "",      "n": "chile pasilla (o 2 cdas. de paprika)" },
+          { "a": 1,    "u": "",      "n": "chile de árbol (opcional)" }
+        ]
+      },
+      {
+        "name": "Especias y líquidos",
+        "items": [
+          { "a": 120,  "u": "ml",   "n": "vinagre blanco o de manzana" },
+          { "a": 2,    "u": "cdas", "n": "paprika o pimentón en polvo" },
+          { "a": 4,    "u": "",     "n": "dientes de ajo sin piel" },
+          { "a": 0.5,  "u": "",     "n": "cebolla pequeña" },
+          { "a": 1,    "u": "cda",  "n": "pimienta entera" },
+          { "a": 2,    "u": "",     "n": "hojas de laurel" },
+          { "a": 1.5,  "u": "cdas", "n": "orégano seco" },
+          { "a": 1,    "u": "cdita","n": "comino" },
+          { "a": 0.5,  "u": "cdita","n": "mejorana" },
+          { "a": 0.5,  "u": "cdita","n": "tomillo" },
+          { "a": 2,    "u": "",     "n": "clavos de olor" },
+          { "a": 0.5,  "u": "cdita","n": "jengibre en polvo" },
+          { "a": 1,    "u": "cda",  "n": "sal (o al gusto)" }
+        ]
+      }
+    ],
+    "steps": [
+      "Limpia los chiles descartando las semillas y el pedúnculo.",
+      "Ponlos en un cuenco y cúbrelos con agua caliente. Deja en remojo por 10 minutos.",
+      "Escurre los chiles y ponlos en la licuadora junto con la cebolla y todas las especias.",
+      "Agrega el vinagre y licúa por 5 minutos a velocidad alta hasta obtener una salsa tersa y sin grumos.",
+      "Pon la carne y el tocino en un cuenco grande.",
+      "Agrega la salsa de chiles y mezcla con las manos (usa guantes) o con una cuchara hasta que todo esté bien integrado.",
+      "Cubre el cuenco y deja reposar en el refrigerador toda la noche antes de usar."
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Muffins de Fresa con Chocolate Blanco",
+    "icon": "cupcake",
+    "category": "postre",
+    "time": "25 min · 220°C",
+    "servingsBase": 12,
+    "servingsUnit": "muffins",
+    "groups": [
+      {
+        "name": "Ingredientes secos",
+        "items": [
+          { "a": 315,  "u": "g",     "n": "harina" },
+          { "a": 200,  "u": "g",     "n": "azúcar blanca" },
+          { "a": 2,    "u": "cditas","n": "polvo para hornear" },
+          { "a": 0.5,  "u": "cdita", "n": "bicarbonato de sodio" },
+          { "a": 120,  "u": "g",     "n": "chispas de chocolate blanco (más para decorar)" },
+          { "a": null, "u": "",      "n": "pizca de sal" }
+        ]
+      },
+      {
+        "name": "Ingredientes húmedos",
+        "items": [
+          { "a": 2,    "u": "",      "n": "huevos, a temperatura ambiente" },
+          { "a": 250,  "u": "ml",   "n": "leche entera" },
+          { "a": 1,    "u": "cda",  "n": "vinagre blanco" },
+          { "a": 65,   "u": "g",    "n": "yogur griego o crema ácida, a temperatura ambiente" },
+          { "a": 2,    "u": "cdas", "n": "aceite vegetal neutro" },
+          { "a": 60,   "u": "g",    "n": "mantequilla derretida" },
+          { "a": 1,    "u": "cda",  "n": "pasta o extracto de vainilla" }
+        ]
+      },
+      {
+        "name": "Fruta",
+        "items": [
+          { "a": 1,    "u": "taza", "n": "fresas frescas, cortadas en cubitos pequeños" }
+        ]
+      }
+    ],
+    "steps": [
+      "Precalienta el horno a 220°C (425°F). Prepara el molde para muffins con capacillos.",
+      "En un vaso, mezcla la leche con el vinagre. Deja reposar 10 minutos hasta que se corte (buttermilk casero).",
+      "En un tazón grande, bate la mantequilla derretida con el azúcar.",
+      "Agrega los huevos y bate 2–3 minutos hasta obtener una mezcla pálida.",
+      "Incorpora la mezcla de leche, la vainilla, el yogur y el aceite. Mezcla bien.",
+      "En otro tazón, combina los ingredientes secos: harina, polvo para hornear, bicarbonato, sal y chispas de chocolate blanco.",
+      "Vierte la mezcla húmeda sobre los ingredientes secos y revuelve justo hasta combinar. No sobre-mezcles.",
+      "Agrega las fresas y mezcla suavemente con una espátula.",
+      "Divide la mezcla entre los moldes. Decora con más fresas y chispas de chocolate si deseas.",
+      "Hornea 5 minutos a 220°C, luego baja la temperatura a 180°C y hornea 15–18 minutos más, hasta que un palillo salga limpio.",
+      "Deja enfriar en el molde antes de servir."
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Vino Caliente / Glühwein",
+    "icon": "zap",
+    "category": "postre",
+    "time": "30 min",
+    "servingsBase": 4,
+    "servingsUnit": "copas",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": 750,  "u": "ml",   "n": "vino tinto joven y afrutado (1 botella)" },
+          { "a": 1,    "u": "",     "n": "naranja en rodajas" },
+          { "a": 1,    "u": "",     "n": "limón en rodajas" },
+          { "a": 5,    "u": "",     "n": "clavos de olor" },
+          { "a": 2,    "u": "ramas","n": "canela" },
+          { "a": 3,    "u": "",     "n": "estrellas de anís" },
+          { "a": 3,    "u": "cdas", "n": "azúcar (ajusta al gusto)" },
+          { "a": null, "u": "",     "n": "brandy o ron (opcional, un toque al final)" }
+        ]
+      }
+    ],
+    "steps": [
+      "En una cacerola grande, vierte el vino y añade las rodajas de naranja y limón, los clavos, las ramas de canela y las estrellas de anís.",
+      "Calienta a fuego lento, sin dejar que llegue a hervir, durante 20–30 minutos. Esto permite que las especias se integren sin evaporar el alcohol.",
+      "Agrega el azúcar al gusto y remueve hasta que se disuelva por completo.",
+      "Si deseas, añade un toque de brandy o ron justo antes de servir.",
+      "Sirve caliente en copa o vaso. Decora con una rodaja de fruta o una rama de canela."
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Budín de Queso Crema con Arándanos",
+    "icon": "cupcake",
+    "category": "postre",
+    "time": "45 min · 180°C",
+    "servingsBase": 8,
+    "servingsUnit": "rebanadas",
+    "groups": [
+      {
+        "name": null,
+        "items": [
+          { "a": 200,  "u": "g",     "n": "harina de trigo" },
+          { "a": 1,    "u": "cdita", "n": "polvo para hornear" },
+          { "a": null, "u": "",      "n": "pizca de sal" },
+          { "a": 100,  "u": "g",     "n": "azúcar" },
+          { "a": 100,  "u": "g",     "n": "queso crema a temperatura ambiente" },
+          { "a": 2,    "u": "",      "n": "huevos" },
+          { "a": 100,  "u": "ml",   "n": "leche" },
+          { "a": 60,   "u": "g",    "n": "mantequilla derretida" },
+          { "a": 1,    "u": "cdita","n": "esencia de vainilla" },
+          { "a": 100,  "u": "g",    "n": "arándanos frescos o secos (si son secos, remójalos 10 min en agua tibia)" }
+        ]
+      }
+    ],
+    "steps": [
+      "Precalienta el horno a 180°C. Engrasa y enharina un molde para pan, o cúbrelo con papel vegetal.",
+      "En un tazón mezcla la harina, el polvo para hornear y la sal.",
+      "En otro recipiente, bate el queso crema con el azúcar hasta obtener una mezcla cremosa.",
+      "Añade los huevos uno a uno y mezcla bien tras cada adición.",
+      "Incorpora la leche, la mantequilla derretida y la vainilla. Mezcla hasta integrar.",
+      "Agrega los ingredientes secos a la mezcla líquida y revuelve hasta obtener una masa homogénea.",
+      "Añade los arándanos y mezcla suavemente con una espátula para no romperlos.",
+      "Vierte la mezcla en el molde preparado y nivela la superficie.",
+      "Hornea 40–45 minutos, o hasta que al insertar un palillo en el centro salga limpio.",
+      "Deja enfriar en el molde 10 minutos antes de desmoldar. Coloca sobre una rejilla y deja enfriar completamente antes de cortar."
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Cupcakes de Plátano",
+    "icon": "cupcake",
+    "category": "postre",
+    "time": "20 min · 180°C",
+    "servingsBase": 18,
+    "servingsUnit": "cupcakes",
+    "groups": [
+      {
+        "name": "Ingredientes secos",
+        "items": [
+          { "a": 250,  "u": "g",     "n": "harina" },
+          { "a": 1,    "u": "cdita", "n": "bicarbonato de sodio" },
+          { "a": 0.5,  "u": "cdita", "n": "polvo para hornear" },
+          { "a": 1,    "u": "cdita", "n": "canela molida" },
+          { "a": 0.75, "u": "cdita", "n": "sal" }
+        ]
+      },
+      {
+        "name": "Ingredientes húmedos",
+        "items": [
+          { "a": 113,  "u": "g",     "n": "mantequilla sin sal, suavizada" },
+          { "a": 100,  "u": "g",     "n": "azúcar morena clara o oscura, compacta" },
+          { "a": 100,  "u": "g",     "n": "azúcar blanca" },
+          { "a": 2,    "u": "",      "n": "huevos grandes, a temperatura ambiente" },
+          { "a": 60,   "u": "g",     "n": "crema ácida o yogur natural, a temperatura ambiente" },
+          { "a": 2,    "u": "cditas","n": "extracto de vainilla puro" },
+          { "a": 345,  "u": "g",     "n": "plátano maduro machacado (aprox. 4 medianos o 3 grandes)" },
+          { "a": 120,  "u": "ml",   "n": "leche de mantequilla (buttermilk), a temperatura ambiente" }
+        ]
+      }
+    ],
+    "steps": [
+      "Precalienta el horno a 180°C. Forra un molde de 12 cupcakes con capacillos. Prepara otro molde con 6 más.",
+      "Bate la mantequilla con las dos azúcares a velocidad media-alta durante 3 minutos, hasta obtener una mezcla cremosa.",
+      "Agrega los huevos, la crema ácida y la vainilla. Bate a velocidad media-alta hasta integrar. Raspa los bordes del tazón.",
+      "Incorpora el plátano machacado y mezcla.",
+      "Con la batidora a velocidad baja, agrega los ingredientes secos alternando con la leche de mantequilla. Empieza y termina con los secos. No sobre-mezcles.",
+      "Divide la mezcla entre los capacillos, llenando solo 2/3 de cada uno.",
+      "Hornea 18–20 minutos, o hasta que un palillo insertado en el centro salga limpio.",
+      "Deja enfriar en el molde 20 minutos. Pasa a una rejilla y deja enfriar completamente antes de frostar."
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Muffins de Zanahoria",
+    "icon": "cupcake",
+    "category": "postre",
+    "time": "25 min · 180°C",
+    "servingsBase": 12,
+    "servingsUnit": "muffins",
+    "groups": [
+      {
+        "name": "Ingredientes secos",
+        "items": [
+          { "a": 166,  "u": "g",     "n": "harina" },
+          { "a": 1,    "u": "cdita", "n": "polvo para hornear" },
+          { "a": 0.5,  "u": "cdita", "n": "bicarbonato de sodio" },
+          { "a": 0.5,  "u": "cdita", "n": "sal" },
+          { "a": 1,    "u": "cdita", "n": "canela molida" },
+          { "a": 0.5,  "u": "cdita", "n": "jengibre molido" },
+          { "a": 0.25, "u": "cdita", "n": "nuez moscada" }
+        ]
+      },
+      {
+        "name": "Ingredientes húmedos",
+        "items": [
+          { "a": 40,   "u": "ml",   "n": "aceite vegetal" },
+          { "a": 80,   "u": "g",    "n": "azúcar morena clara o oscura, compacta" },
+          { "a": 2,    "u": "",     "n": "huevos grandes, a temperatura ambiente" },
+          { "a": 80,   "u": "g",    "n": "puré de manzana sin azúcar, crema ácida o yogur natural" },
+          { "a": 1,    "u": "cdita","n": "extracto de vainilla puro" },
+          { "a": 200,  "u": "g",    "n": "zanahoria pelada y rallada (aprox. 3 zanahorias grandes)" }
+        ]
+      },
+      {
+        "name": "Opcionales",
+        "items": [
+          { "a": 0.75, "u": "taza", "n": "nueces o pecanas picadas (o pasas)" }
+        ]
+      }
+    ],
+    "steps": [
+      "Precalienta el horno a 180°C (350°F). Forra un molde para 12 muffins con capacillos.",
+      "En un tazón grande, mezcla todos los ingredientes secos: harina, polvo para hornear, bicarbonato, sal, canela, jengibre y nuez moscada. Reserva.",
+      "En otro tazón, bate el aceite con el azúcar morena. Agrega los huevos, el puré de manzana (o crema ácida) y la vainilla. Mezcla bien.",
+      "Incorpora la zanahoria rallada a la mezcla húmeda.",
+      "Vierte los ingredientes húmedos sobre los secos y revuelve justo hasta combinar. La mezcla quedará algo espesa. No sobre-mezcles.",
+      "Si usas nueces o pasas, incorpóralas en este paso.",
+      "Divide la mezcla entre los capacillos, llenando 3/4 de cada uno.",
+      "Hornea 21–23 minutos, o hasta que un palillo insertado en el centro salga limpio.",
+      "Deja enfriar completamente antes de decorar con betún si se desea."
+    ]
   }
 ]
